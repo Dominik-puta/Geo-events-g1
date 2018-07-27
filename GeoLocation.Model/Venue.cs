@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GeoLocation.Model
 {
-    class Venue : IVenue
+    public class Venue : IVenue
     {
         public Guid Id { get; set; }
         public string Description { get; set; }

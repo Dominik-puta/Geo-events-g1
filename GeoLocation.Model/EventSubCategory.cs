@@ -1,15 +1,15 @@
-﻿using GeoLocation.Model.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using GeoLocation.Model.Common;
 
 namespace GeoLocation.Model
 {
-    public class Country : ICountry
+    public class EventSubCategory : IEventSubCategory
     {
         public Guid Id { get; set; }
         public string Abrv { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
+        public DateTime DateCreated { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GeoLocation.Model
 {
-    class EventCategory : IEventCategory
+    public class EventCategory : IEventCategory
     {
         public Guid Id { get; set; }
         public string Abrv { get; set; }

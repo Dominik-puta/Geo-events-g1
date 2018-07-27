@@ -5,6 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GeoLocation.Web.Models;
+using GeoLocation.Model;
+using GeoLocation.Model.Common;
+using GeoLocation.Repository;
+using Npgsql;
 
 namespace GeoLocation.Web.Controllers
 {
@@ -12,7 +16,9 @@ namespace GeoLocation.Web.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            DbRepository repo = new DbRepository();
+            var events = repo.GetEvents();
+            return View(events);
         }
 
         public IActionResult About()

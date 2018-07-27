@@ -13,4 +13,9 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GeoLocation.Model.Common\GeoLocation.Model.Common.csproj" />
+    <ProjectReference Include="..\GeoLocation.Repository\GeoLocation.Repository.csproj" />
+  </ItemGroup>
+
 </Project>

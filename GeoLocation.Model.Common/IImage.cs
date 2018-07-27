@@ -8,7 +8,7 @@ namespace GeoLocation.Model.Common
     {
         Guid Id { get; set; }
         Guid EventId { get; set; }
-        // image path, datatype?
+        Byte[] ImageFile { get; set; }
         string FileName { get; set; }
         string Title { get; set; }
     }

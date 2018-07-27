@@ -4,4 +4,14 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Npgsql" Version="4.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GeoLocation.Model.Common\GeoLocation.Model.Common.csproj" />
+    <ProjectReference Include="..\GeoLocation.Model\GeoLocation.Model.csproj" />
+    <ProjectReference Include="..\GeoLocation.Repository.Common\GeoLocation.Repository.Common.csproj" />
+  </ItemGroup>
+
 </Project>

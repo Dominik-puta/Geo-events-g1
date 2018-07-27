@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GeoLocation.Model
 {
-    class Comment : IComment
+    public class Comment : IComment
     {
         public Guid Id { get; set; }
         public Guid EventId { get; set; }
