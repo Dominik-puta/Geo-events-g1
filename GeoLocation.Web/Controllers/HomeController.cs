@@ -9,21 +9,55 @@ using GeoLocation.Model;
 using GeoLocation.Model.Common;
 using GeoLocation.Repository;
 using Npgsql;
+using GeoLocation.Repository.Common;
 
 namespace GeoLocation.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private IRepository _repository;
+
+        public HomeController(IRepository repository)
+        {
+            _repository = repository;
+        }
         public IActionResult Index()
         {
-            DbRepository repo = new DbRepository();
-            var events = repo.GetEvents();
+            var events = _repository.GetEvents();
             return View(events);
         }
 
-        public IActionResult About()
+        public IActionResult Add()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "";
+
+            if (Request.HasFormContentType)
+            {
+                Event newEvent = new Event()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = Request.Form["Name"],
+                    Description = Request.Form["Description"],
+                    EntryFee = Decimal.Parse(Request.Form["EntryFee"]),
+                    LimitedSpace = int.Parse(Request.Form["LimitedSpace"]),
+                    Organizer = Request.Form["Organizer"],
+                    Lat = double.Parse(Request.Form["Lat"]),
+                    Long = double.Parse(Request.Form["Long"]),
+                    StartDate = DateTime.Parse(Request.Form["StartDate"]),
+                    EndDate = DateTime.Parse(Request.Form["EndDate"]),
+                    CategoryName = Request.Form["CategoryName"],
+                    SubCategoryName = Request.Form["SubCategoryName"],
+                    VenueName = Request.Form["VenueName"],
+                };
+                
+                newEvent.EventCategoryId = _repository.SearchForId(newEvent.CategoryName, "EventCategory", "CategoryName");
+                newEvent.EventSubcategoryId = _repository.SearchForId(newEvent.SubCategoryName, "EventSubCategory", "SubCategoryName");
+                newEvent.VenueId = _repository.SearchForId(newEvent.VenueName, "Venue", "VenueName");
+
+                _repository.AddEvent(newEvent);
+
+                ViewData["Message"] = "Added";
+            }
 
             return View();
         }

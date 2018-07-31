@@ -8,5 +8,7 @@ namespace GeoLocation.Repository.Common
     public interface IRepository
     {
         IEnumerable<IEvent> GetEvents();
+        void AddEvent(IEvent newEvent);
+        Guid SearchForId(string item, string table, string column);
     }
 }

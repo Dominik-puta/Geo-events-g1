@@ -35,13 +35,18 @@
                     <td>@item.EntryFee</td>
                     <td>@item.LimitedSpace</td>
                     <td>@item.Organizer</td>
-                    <td>@item.Lat, 
-                        @item.Long</td>
+                    <td>
+                        <a href='@string.Format("https://www.google.com/maps/search/?api=1&query={0},{1}", 
+                                item.Lat, item.Long)'>
+                            @item.Lat,
+                            @item.Long
+                        </a>
+                    </td>
                     <td>@item.StartDate</td>
                     <td>@item.EndDate</td>
-                    <td>@item.EventCategoryId</td>
-                    <td>@item.EventSubcategoryId</td>
-                    <td>@item.VenueId</td>
+                    <td>@item.CategoryName</td>
+                    <td>@item.SubCategoryName</td>
+                    <td>@item.VenueName</td>
                     <td>@item.StatusId</td>
                 </tr>
             }

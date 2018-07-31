@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GeoLocation.Model.Common
 {
@@ -7,7 +8,7 @@ namespace GeoLocation.Model.Common
         Guid Id { get; set; }
         string Name { get; set; }
         string Description { get; set; }
-        float EntryFee { get; set; }
+        Decimal EntryFee { get; set; }
         int LimitedSpace { get; set; }
         string Organizer { get; set; }
         double Lat { get; set; }
@@ -18,5 +19,9 @@ namespace GeoLocation.Model.Common
         Guid EventSubcategoryId { get; set; }
         Guid VenueId { get; set; }
         Guid StatusId { get; set; }
+
+        string CategoryName { get; set; }
+        string SubCategoryName { get; set; }
+        string VenueName { get; set; }
     }
 }

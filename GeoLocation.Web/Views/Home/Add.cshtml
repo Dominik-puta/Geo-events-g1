@@ -1,0 +1,62 @@
+﻿@using GeoLocation.Model
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Add a new event
+    </div>
+    <div class="panel-body">
+        @using(Html.BeginForm("Add", "Home", FormMethod.Post)){
+
+            <label for="Name">Name</label>
+            <input type="text" name="Name" />
+            <br />
+
+            <label for="Description">Description</label>
+            <input type="text" name="Description" />
+            <br />
+
+            <label for="EntryFee">Entry Fee</label>
+            <input type="number" step="0.1" name="EntryFee" />
+            <br />
+
+            <label for="LimitedSpace">Visitor limitation</label>
+            <input type="number" name="LimitedSpace" />
+            <br />
+
+            <label for="Organizer">Organizer</label>
+            <input type="text" name="Organizer" />
+            <br />
+
+            <label for="Lat">Latitude</label>
+            <input type="number" step="any" name="Lat" />
+            <br />
+
+            <label for="Long">Longitude</label>
+            <input type="number" step="any" />
+            <br />
+
+            <label for="StartDate">Start Date</label>
+            <input type="datetime" name="StartDate" />
+            <br />
+
+            <label for="EndDate">End Date</label>
+            <input type="datetime" name="EndDate" />
+            <br />
+
+            <label for="CategoryName">Event Category</label>
+            <input type="text" name="CategoryName" />
+            <br />
+
+            <label for="SubCategoryName">Event Subcategory</label>
+            <input type="text" name="SubCategoryName" />
+            <br />
+
+            <label for="VenueName">Venue</label>
+            <input type="text" name="VenueName" />
+            <br />
+
+            <input type="submit" value="Submit" />
+        }
+    </div>
+</div>
+@ViewData["Message"]
