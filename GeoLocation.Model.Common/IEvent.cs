@@ -16,7 +16,7 @@ namespace GeoLocation.Model.Common
         DateTime StartDate { get; set; }
         DateTime EndDate { get; set; }
         Guid EventCategoryId { get; set; }
-        Guid EventSubcategoryId { get; set; }
+        Guid EventSubCategoryId { get; set; }
         Guid VenueId { get; set; }
         Guid StatusId { get; set; }
 

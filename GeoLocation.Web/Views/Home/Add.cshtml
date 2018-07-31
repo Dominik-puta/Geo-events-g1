@@ -8,51 +8,51 @@
         @using(Html.BeginForm("Add", "Home", FormMethod.Post)){
 
             <label for="Name">Name</label>
-            <input type="text" name="Name" />
+            <input type="text" name="Name" required/>
             <br />
 
             <label for="Description">Description</label>
-            <input type="text" name="Description" />
+            <input type="text" name="Description" required/>
             <br />
 
             <label for="EntryFee">Entry Fee</label>
-            <input type="number" step="0.1" name="EntryFee" />
+            <input type="number" step="0.1" name="EntryFee" required/>
             <br />
 
             <label for="LimitedSpace">Visitor limitation</label>
-            <input type="number" name="LimitedSpace" />
+            <input type="number" name="LimitedSpace" required/>
             <br />
 
             <label for="Organizer">Organizer</label>
-            <input type="text" name="Organizer" />
+            <input type="text" name="Organizer" required/>
             <br />
 
             <label for="Lat">Latitude</label>
-            <input type="number" step="any" name="Lat" />
+            <input type="number" step="any" name="Lat" required/>
             <br />
 
             <label for="Long">Longitude</label>
-            <input type="number" step="any" />
+            <input type="number" step="any" name="Long" required/>
             <br />
 
             <label for="StartDate">Start Date</label>
-            <input type="datetime" name="StartDate" />
+            <input type="datetime" name="StartDate" required/>
             <br />
 
             <label for="EndDate">End Date</label>
-            <input type="datetime" name="EndDate" />
+            <input type="datetime" name="EndDate" required/>
             <br />
 
             <label for="CategoryName">Event Category</label>
-            <input type="text" name="CategoryName" />
+            <input type="text" name="CategoryName" required/>
             <br />
 
             <label for="SubCategoryName">Event Subcategory</label>
-            <input type="text" name="SubCategoryName" />
+            <input type="text" name="SubCategoryName" required/>
             <br />
 
             <label for="VenueName">Venue</label>
-            <input type="text" name="VenueName" />
+            <input type="text" name="VenueName" required/>
             <br />
 
             <input type="submit" value="Submit" />

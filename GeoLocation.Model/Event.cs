@@ -20,7 +20,7 @@ namespace GeoLocation.Model
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public Guid EventCategoryId { get; set; }
-        public Guid EventSubcategoryId { get; set; }
+        public Guid EventSubCategoryId { get; set; }
         public Guid VenueId { get; set; }
         public Guid StatusId { get; set; }
 

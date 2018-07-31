@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GeoLocation.Repository.Common
 {
-    public interface IRepository
+    public interface IEventRepository
     {
         IEnumerable<IEvent> GetEvents();
         void AddEvent(IEvent newEvent);

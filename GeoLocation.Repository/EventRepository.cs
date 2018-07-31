@@ -9,13 +9,13 @@ using Microsoft.Extensions.Configuration;
 
 namespace GeoLocation.Repository
 {
-    public class DbRepository : IRepository
+    public class EventRepository : IEventRepository
     {
         private NpgsqlConnection conn = null;
         private IConfiguration _configuration;
         private string _conStr = string.Empty;
 
-        public DbRepository(IConfiguration configuration)
+        public EventRepository(IConfiguration configuration)
         {
             _configuration = configuration;
             _conStr = _configuration.GetConnectionString("MainConnection");
@@ -47,7 +47,7 @@ namespace GeoLocation.Repository
                         StartDate = (DateTime)dr["StartDate"],
                         EndDate = (DateTime)dr["EndDate"],
                         EventCategoryId = (dr["EventCategoryId"] is DBNull) ? Guid.Empty : (Guid)dr["EventCategoryId"],
-                        EventSubcategoryId = (dr["EventSubCategoryId"] is DBNull) ? Guid.Empty : (Guid)dr["EventSubcategoryId"],
+                        EventSubCategoryId = (dr["EventSubCategoryId"] is DBNull) ? Guid.Empty : (Guid)dr["EventSubcategoryId"],
                         VenueId = (dr["VenueId"] is DBNull) ? Guid.Empty : (Guid)dr["VenueId"],
                         StatusId = (dr["StatusId"] is DBNull) ? Guid.Empty : (Guid)dr["StatusId"],
                         // joined columns
@@ -71,8 +71,8 @@ namespace GeoLocation.Repository
                 {
                     command.Connection = conn;
                     command.CommandText = "INSERT INTO \"Event\" (\"Id\", \"Name\", \"Description\"" +
-                        ", \"EntryFee\", \"LimitedSpace\", \"Organizer\", \"Lat\", \"Long\", \"StartDate\", \"EndDate\", \"EventCategoryId\", \"EventSubcategoryId\", \"VenueId\", \"StatusId\")" +
-                        "VALUES (@id, @name, @desc)" + 
+                        ", \"EntryFee\", \"LimitedSpace\", \"Organizer\", \"Lat\", \"Long\", \"StartDate\", \"EndDate\", \"EventCategoryId\", \"EventSubCategoryId\", \"VenueId\", \"StatusId\")" +
+                        "VALUES (@id, @name, @desc" + 
                         ", @fee, @lspace, @org, @lat, @long, @start, @end, @catId, @subCatId, @venueId, @statusId)";
                     command.Parameters.AddWithValue("id", newEvent.Id);
                     command.Parameters.AddWithValue("name", newEvent.Name);
@@ -85,7 +85,7 @@ namespace GeoLocation.Repository
                     command.Parameters.AddWithValue("start", newEvent.StartDate);
                     command.Parameters.AddWithValue("end", newEvent.EndDate);
                     command.Parameters.AddWithValue("catId", newEvent.EventCategoryId);
-                    command.Parameters.AddWithValue("subCatId", newEvent.EventSubcategoryId);
+                    command.Parameters.AddWithValue("subCatId", newEvent.EventSubCategoryId);
                     command.Parameters.AddWithValue("venueId", newEvent.VenueId);
                     command.Parameters.AddWithValue("statusId", newEvent.StatusId);
 

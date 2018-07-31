@@ -25,7 +25,7 @@ namespace GeoLocation.Web
         {
             services.AddMvc();
             services.AddSingleton<IConfiguration>(Configuration);
-            services.AddScoped(typeof(IRepository), typeof(DbRepository));
+            services.AddScoped(typeof(IEventRepository), typeof(EventRepository));
 
         }
 
