@@ -24,7 +24,6 @@
                 <td>Subcategory</td>
                 <td>Venue</td>
                 <td>Status</td>
-                <td> </td>
             </tr>
         </thead>
         <tbody>
@@ -48,11 +47,6 @@
                     <td>@item.SubCategoryName</td>
                     <td>@item.VenueName</td>
                     <td>@item.StatusId</td>
-                    <td>
-                        <a asp-controller="Home" asp-action="DeleteEvent" asp-route-id='@item.Id'>
-                            &#x2613
-                        </a>
-                    </td>
                 </tr>
             }
         </tbody>
