@@ -94,5 +94,19 @@ namespace GeoLocation.Repository
             }
         }
 
+        public void DeleteEvent(Guid eventId)
+        {
+            using (conn = new NpgsqlConnection(_conStr))
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand())
+                {
+                    command.Connection = conn;
+                    command.CommandText = "DELETE FROM \"Event\" WHERE \"Id\" = @id";
+                    command.Parameters.AddWithValue("id", eventId);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace GeoLocation.Repository.Common
     {
         IEnumerable<IEvent> GetEvents();
         void AddEvent(IEvent newEvent);
+        void DeleteEvent(Guid EventId);
     }
 }
