@@ -38,8 +38,8 @@ namespace GeoLocation.Repository
                         {
                             Id = (Guid)dr["Id"],
                             Abrv = (string)dr["Abrv"],
-                            Name = (string)dr["SubCategoryName"],
-                            DateCreated = (DateTime)dr["DateCreated"]
+                            Name = (dr["SubCategoryName"] is DBNull) ? string.Empty : (string)dr["SubCategoryName"],
+                            DateCreated = (dr["DateCreated"] is DBNull) ? DateTime.Now : (DateTime)dr["DateCreated"]
                         };
 
                         subCategories.Add(newSubCategory);

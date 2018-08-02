@@ -38,9 +38,9 @@ namespace GeoLocation.Repository
                         {
                             Id = (Guid)dr["Id"],
                             Abrv = (string)dr["Abrv"],
-                            Name = (string)dr["CategoryName"],
-                            Description = (string)dr["Description"],
-                            DateCreated = (DateTime)dr["DateCreated"]
+                            Name = (dr["CategoryName"] is DBNull) ? string.Empty : (string)dr["CategoryName"],
+                            Description = (dr["Description"] is DBNull) ? string.Empty : (string)dr["Description"],
+                            DateCreated = (dr["DateCreated"] is DBNull) ? DateTime.Now : (DateTime)dr["DateCreated"]
                         };
 
                         categories.Add(newCategory);
