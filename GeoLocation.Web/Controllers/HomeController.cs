@@ -83,6 +83,11 @@ namespace GeoLocation.Web.Controllers
             return View(addViewModel);
         }
 
+        public IActionResult DeleteEvent(Guid id)
+        {
+            _eventRepository.DeleteEvent(id);
+            return RedirectToAction("Index");
+        }
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
