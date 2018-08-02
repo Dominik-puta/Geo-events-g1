@@ -1,59 +1,55 @@
-﻿@using GeoLocation.Model
+﻿@using GeoLocation.Web.Models
+@model AddViewModel
 
 <div class="panel panel-default">
     <div class="panel-heading">
         Add a new event
     </div>
     <div class="panel-body">
-        @using(Html.BeginForm("Add", "Home", FormMethod.Post)){
+        @using (Html.BeginForm("Add", "Home", FormMethod.Post))
+        {
 
             <label for="Name">Name</label>
-            <input type="text" name="Name" required/>
+            <input type="text" name="Name" required />
             <br />
 
             <label for="Description">Description</label>
-            <input type="text" name="Description" required/>
+            <input type="text" name="Description" required />
             <br />
 
             <label for="EntryFee">Entry Fee</label>
-            <input type="number" step="0.1" name="EntryFee" required/>
+            <input type="number" step="0.01" name="EntryFee" required />
             <br />
 
             <label for="LimitedSpace">Visitor limitation</label>
-            <input type="number" name="LimitedSpace" required/>
+            <input type="number" name="LimitedSpace" required />
             <br />
 
             <label for="Organizer">Organizer</label>
-            <input type="text" name="Organizer" required/>
+            <input type="text" name="Organizer" required />
             <br />
 
             <label for="Lat">Latitude</label>
-            <input type="number" step="any" name="Lat" required/>
+            <input type="number" step="any" name="Lat" required />
             <br />
 
             <label for="Long">Longitude</label>
-            <input type="number" step="any" name="Long" required/>
+            <input type="number" step="any" name="Long" required />
             <br />
 
             <label for="StartDate">Start Date</label>
-            <input type="datetime" name="StartDate" required/>
+            <input type="datetime" name="StartDate" required />
             <br />
 
             <label for="EndDate">End Date</label>
-            <input type="datetime" name="EndDate" required/>
+            <input type="datetime" name="EndDate" required />
             <br />
 
-            <label for="CategoryName">Event Category</label>
-            <input type="text" name="CategoryName" required/>
-            <br />
+            @await Html.PartialAsync("EventCategorySelectPartial", Model.Categories);
 
-            <label for="SubCategoryName">Event Subcategory</label>
-            <input type="text" name="SubCategoryName" required/>
-            <br />
+            @await Html.PartialAsync("EventSubCategorySelectPartial", Model.SubCategories);
 
-            <label for="VenueName">Venue</label>
-            <input type="text" name="VenueName" required/>
-            <br />
+            @await Html.PartialAsync("VenueSelectPartial", Model.Venues);
 
             <input type="submit" value="Submit" />
         }

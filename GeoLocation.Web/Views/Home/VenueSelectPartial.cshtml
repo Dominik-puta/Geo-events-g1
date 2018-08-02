@@ -1,0 +1,11 @@
+﻿@using GeoLocation.Model;
+@model List<Venue>
+
+<label for="Venue">Venue</label>
+<select name="Venue">
+    @foreach (var venue in Model)
+    {
+        <option value='@venue.Id'>@venue.Name</option>
+    }
+</select>
+<br />

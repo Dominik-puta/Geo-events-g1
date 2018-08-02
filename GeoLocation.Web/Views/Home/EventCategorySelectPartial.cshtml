@@ -1,0 +1,11 @@
+﻿@using GeoLocation.Model;
+@model IEnumerable<EventCategory>
+
+<label for="EventCategory">Event Category</label>
+<select name="EventCategory">
+    @foreach (var category in Model)
+    {
+        <option value='@category.Id'>@category.Name</option>
+    }
+</select>
+<br />

@@ -8,22 +8,33 @@ using GeoLocation.Web.Models;
 using GeoLocation.Model;
 using GeoLocation.Model.Common;
 using GeoLocation.Repository;
-using Npgsql;
 using GeoLocation.Repository.Common;
 
 namespace GeoLocation.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private IEventRepository _repository;
+        private IEventRepository _eventRepository;
+        private IEventCategoryRepository _eventCategoryRepository;
+        private IEventSubCategoryRepository _eventSubCategoryRepository;
+        private IVenueRepository _venueRepository;
 
-        public HomeController(IEventRepository repository)
+        public HomeController(
+            IEventRepository eventRepository, 
+            IEventCategoryRepository eventCategoryRepository,
+            IEventSubCategoryRepository eventSubCategoryRepository,
+            IVenueRepository venueRepository
+            )
         {
-            _repository = repository;
+            _eventRepository = eventRepository;
+            _eventCategoryRepository = eventCategoryRepository;
+            _eventSubCategoryRepository = eventSubCategoryRepository;
+            _venueRepository = venueRepository;
         }
+
         public IActionResult Index()
         {
-            var events = _repository.GetEvents();
+            var events = _eventRepository.GetEvents();
             return View(events);
         }
 
@@ -47,16 +58,12 @@ namespace GeoLocation.Web.Controllers
                         Long = double.Parse(Request.Form["Long"]),
                         StartDate = DateTime.Parse(Request.Form["StartDate"]),
                         EndDate = DateTime.Parse(Request.Form["EndDate"]),
-                        CategoryName = Request.Form["CategoryName"],
-                        SubCategoryName = Request.Form["SubCategoryName"],
-                        VenueName = Request.Form["VenueName"],
+                        EventCategoryId = Guid.Parse(Request.Form["EventCategory"]),
+                        EventSubCategoryId = Guid.Parse(Request.Form["EventSubCategory"]),
+                        VenueId = Guid.Parse(Request.Form["Venue"])
                     };
 
-                    newEvent.EventCategoryId = _repository.SearchForId(newEvent.CategoryName, "EventCategory", "CategoryName");
-                    newEvent.EventSubCategoryId = _repository.SearchForId(newEvent.SubCategoryName, "EventSubCategory", "SubCategoryName");
-                    newEvent.VenueId = _repository.SearchForId(newEvent.VenueName, "Venue", "VenueName");
-
-                    _repository.AddEvent(newEvent);
+                    _eventRepository.AddEvent(newEvent);
 
                     ViewData["Message"] = "Added";
                 }
@@ -66,7 +73,14 @@ namespace GeoLocation.Web.Controllers
                 ViewData["Message"] = "Input is invalid.";
             }
 
-            return View();
+            AddViewModel addViewModel = new AddViewModel()
+            {
+                Categories = _eventCategoryRepository.GetEventCategories(),
+                SubCategories = _eventSubCategoryRepository.GetSubCategories(),
+                Venues = _venueRepository.GetVenues()
+            };
+
+            return View(addViewModel);
         }
 
         public IActionResult Contact()

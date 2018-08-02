@@ -1,14 +1,12 @@
 ﻿using GeoLocation.Model;
-using GeoLocation.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace GeoLocation.Repository.Common
 {
-    public interface IEventRepository
+    public interface IEventSubCategoryRepository
     {
-        IEnumerable<IEvent> GetEvents();
-        void AddEvent(IEvent newEvent);
+        IEnumerable<EventSubCategory> GetSubCategories();
     }
 }

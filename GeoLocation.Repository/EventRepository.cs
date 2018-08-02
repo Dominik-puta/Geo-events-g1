@@ -94,28 +94,5 @@ namespace GeoLocation.Repository
             }
         }
 
-        public Guid SearchForId(string item, string table, string column)
-        {
-            item = "'" + item + "'";
-            table = "\"" + table + "\"";
-            column = "\"" + column + "\"";
-
-            using (conn = new NpgsqlConnection(_conStr))
-            {
-                conn.Open();
-                using (var command = new NpgsqlCommand())
-                {
-                    command.Connection = conn;
-                    command.CommandText = "SELECT \"Id\" FROM " + table +
-                        " WHERE " + column + " = " + item;
-                    var dr = command.ExecuteReader();
-                    dr.Read();
-
-                    Guid itemId = (Guid)dr["Id"];
-
-                    return itemId;
-                }
-            }
-        }
     }
 }
