@@ -6,9 +6,8 @@ using System.Text;
 
 namespace GeoLocation.Repository.Common
 {
-    public interface IEventRepository
+    public interface IEventCategoryRepository
     {
-        IEnumerable<IEvent> GetEvents();
-        void AddEvent(IEvent newEvent);
+        IEnumerable<EventCategory> GetEventCategories();
     }
 }

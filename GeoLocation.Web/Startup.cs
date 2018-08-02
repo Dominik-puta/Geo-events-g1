@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GeoLocation.Repository;
 using GeoLocation.Repository.Common;
+using GeoLocation.Web.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,7 +27,9 @@ namespace GeoLocation.Web
             services.AddMvc();
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddScoped(typeof(IEventRepository), typeof(EventRepository));
-
+            services.AddScoped(typeof(IEventCategoryRepository), typeof(EventCategoryRepository));
+            services.AddScoped(typeof(IEventSubCategoryRepository), typeof(EventSubCategoryRepository));
+            services.AddScoped(typeof(IVenueRepository), typeof(VenueRepository));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

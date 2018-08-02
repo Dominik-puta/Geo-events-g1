@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLocation.Web", "GeoLocation.Web\GeoLocation.Web.csproj", "{01F86836-4D02-42FC-928E-658EB4C5D9C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeoLocation.Web", "GeoLocation.Web\GeoLocation.Web.csproj", "{01F86836-4D02-42FC-928E-658EB4C5D9C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLocation.Common", "GeoLocation.Common\GeoLocation.Common.csproj", "{257F9D8E-7788-492C-B099-9EE80B53A45E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeoLocation.Common", "GeoLocation.Common\GeoLocation.Common.csproj", "{257F9D8E-7788-492C-B099-9EE80B53A45E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLocation.Model.Common", "GeoLocation.Model.Common\GeoLocation.Model.Common.csproj", "{C7A74BB0-E66F-418D-A8CA-32B3FD436D4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeoLocation.Model.Common", "GeoLocation.Model.Common\GeoLocation.Model.Common.csproj", "{C7A74BB0-E66F-418D-A8CA-32B3FD436D4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLocation.Model", "GeoLocation.Model\GeoLocation.Model.csproj", "{D79F6DF7-4FD4-4287-B9CD-7F3EEC94BED4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeoLocation.Model", "GeoLocation.Model\GeoLocation.Model.csproj", "{D79F6DF7-4FD4-4287-B9CD-7F3EEC94BED4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLocation.Repository", "GeoLocation.Repository\GeoLocation.Repository.csproj", "{BC758D1D-4209-4342-B8DE-37166B41D721}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeoLocation.Repository", "GeoLocation.Repository\GeoLocation.Repository.csproj", "{BC758D1D-4209-4342-B8DE-37166B41D721}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLocation.Repository.Common", "GeoLocation.Repository.Common\GeoLocation.Repository.Common.csproj", "{A98A0851-AA72-4310-A291-87D82DDC3B8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeoLocation.Repository.Common", "GeoLocation.Repository.Common\GeoLocation.Repository.Common.csproj", "{A98A0851-AA72-4310-A291-87D82DDC3B8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

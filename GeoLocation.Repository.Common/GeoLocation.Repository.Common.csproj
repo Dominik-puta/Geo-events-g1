@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GeoLocation.Model.Common\GeoLocation.Model.Common.csproj" />
+    <ProjectReference Include="..\GeoLocation.Model\GeoLocation.Model.csproj" />
   </ItemGroup>
 
 </Project>

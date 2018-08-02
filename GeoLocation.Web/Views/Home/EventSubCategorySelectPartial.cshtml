@@ -1,0 +1,11 @@
+﻿@using GeoLocation.Model;
+@model List<EventSubCategory>
+
+<label for="EventSubCategory">Event Subcategory</label>
+<select name="EventSubCategory">
+    @foreach (var subCategory in Model)
+    {
+        <option value='@subCategory.Id'>@subCategory.Name</option>
+    }
+</select>
+<br />
