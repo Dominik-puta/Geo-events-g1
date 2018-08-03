@@ -50,5 +50,31 @@ namespace GeoLocation.Repository
                 }
             }
         }
+
+        public EventCategory GetCategoryById(Guid categoryId)
+        {
+            using (conn = new NpgsqlConnection(_conStr))
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand())
+                {
+                    command.CommandText = "SELECT * FROM \"EventCategory\" WHERE \"Id\" = @id";
+                    command.Parameters.AddWithValue("id", categoryId);
+                    command.Connection = conn;
+                    var dr = command.ExecuteReader();
+                    dr.Read();
+                    EventCategory newCategory = new EventCategory()
+                    {
+                        Id = (Guid)dr["Id"],
+                        Abrv = (string)dr["Abrv"],
+                        Name = (dr["CategoryName"] is DBNull) ? string.Empty : (string)dr["CategoryName"],
+                        Description = (dr["Description"] is DBNull) ? string.Empty : (string)dr["Description"],
+                        DateCreated = (dr["DateCreated"] is DBNull) ? DateTime.Now : (DateTime)dr["DateCreated"]
+                    };
+
+                    return newCategory;
+                }
+            }
+        }
     }
 }

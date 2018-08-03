@@ -8,5 +8,6 @@ namespace GeoLocation.Repository.Common
     public interface IVenueRepository
     {
         IEnumerable<Venue> GetVenues();
+        Venue GetVenueById(Guid venueId);
     }
 }

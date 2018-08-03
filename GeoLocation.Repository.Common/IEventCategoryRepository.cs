@@ -9,5 +9,6 @@ namespace GeoLocation.Repository.Common
     public interface IEventCategoryRepository
     {
         IEnumerable<EventCategory> GetEventCategories();
+        EventCategory GetCategoryById(Guid categoryId);
     }
 }

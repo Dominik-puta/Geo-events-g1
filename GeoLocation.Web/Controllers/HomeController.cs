@@ -88,11 +88,14 @@ namespace GeoLocation.Web.Controllers
             _eventRepository.DeleteEvent(id);
             return RedirectToAction("Index");
         }
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
 
-            return View();
+        public IActionResult EventDetails(EventDetailsViewModel eventDetails)
+        {
+            eventDetails.Event = _eventRepository.GetEventById(eventDetails.EventId);
+            eventDetails.EventCategory = _eventCategoryRepository.GetCategoryById(eventDetails.Event.EventCategoryId);
+            eventDetails.EventSubCategory = _eventSubCategoryRepository.GetSubCategoryById(eventDetails.Event.EventSubCategoryId);
+            eventDetails.Venue = _venueRepository.GetVenueById(eventDetails.Event.VenueId);
+            return View(eventDetails);
         }
 
         public IActionResult Error()

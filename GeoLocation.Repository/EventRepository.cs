@@ -21,7 +21,7 @@ namespace GeoLocation.Repository
             _conStr = _configuration.GetConnectionString("MainConnection");
         }
 
-        public IEnumerable<IEvent> GetEvents()
+        public IEnumerable<Event> GetEvents()
         {
             List<Event> events = new List<Event>();
             using (conn = new NpgsqlConnection(_conStr))
@@ -105,6 +105,40 @@ namespace GeoLocation.Repository
                     command.CommandText = "DELETE FROM \"Event\" WHERE \"Id\" = @id";
                     command.Parameters.AddWithValue("id", eventId);
                     command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public Event GetEventById(Guid eventId)
+        {
+            using (conn = new NpgsqlConnection(_conStr))
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand())
+                {
+                    command.Connection = conn;
+                    command.CommandText = "SELECT * FROM \"Event\" WHERE \"Id\" = @id";
+                    command.Parameters.AddWithValue("id", eventId);
+                    var dr = command.ExecuteReader();
+                    dr.Read();
+                    Event newEvent = new Event()
+                    {
+                        Id = (Guid)dr["Id"],
+                        Name = (string)dr["Name"],
+                        Description = (string)dr["Description"],
+                        EntryFee = (Decimal)dr["EntryFee"],
+                        LimitedSpace = (int)dr["LimitedSpace"],
+                        Organizer = (string)dr["Organizer"],
+                        Lat = (double)dr["Lat"],
+                        Long = (double)dr["Long"],
+                        StartDate = (DateTime)dr["StartDate"],
+                        EndDate = (DateTime)dr["EndDate"],
+                        EventCategoryId = (dr["EventCategoryId"] is DBNull) ? Guid.Empty : (Guid)dr["EventCategoryId"],
+                        EventSubCategoryId = (dr["EventSubCategoryId"] is DBNull) ? Guid.Empty : (Guid)dr["EventSubcategoryId"],
+                        VenueId = (dr["VenueId"] is DBNull) ? Guid.Empty : (Guid)dr["VenueId"],
+                        StatusId = (dr["StatusId"] is DBNull) ? Guid.Empty : (Guid)dr["StatusId"]
+                    };
+                    return newEvent;
                 }
             }
         }
