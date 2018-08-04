@@ -1,6 +1,18 @@
 ﻿@model EventDetailsViewModel
 
 <h2>@Model.Event.Name</h2>
+<h4>@Model.Event.Description</h4>
+<div>@Model.Event.StartDate - @Model.Event.EndDate</div>
+
 <h3>@Model.Venue.Name</h3>
+<div>
+    <ul>
+        <li>@Model.Venue.Description</li>
+        <li>@Model.Venue.Address</li>
+        <li>@Model.Venue.Phone</li>
+        <li>@Model.Venue.Email</li>
+    </ul>
+</div>
+
 <h4>@Model.EventCategory.Name, @Model.EventSubCategory.Name</h4>
 
