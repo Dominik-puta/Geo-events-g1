@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GeoLocation.Model\GeoLocation.Model.csproj" />
+    <ProjectReference Include="..\GeoLocation.Web\GeoLocation.Web.csproj" />
+  </ItemGroup>
+
 </Project>

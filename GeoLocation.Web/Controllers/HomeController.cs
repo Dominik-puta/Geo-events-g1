@@ -38,41 +38,17 @@ namespace GeoLocation.Web.Controllers
             return View(events);
         }
 
-        public IActionResult Add()
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult Add(AddViewModel model)
         {
-            ViewData["Message"] = "";
+            model.NewEvent.Id = Guid.NewGuid();
+            _eventRepository.AddEvent(model.NewEvent);
+            return RedirectToAction("Index");
+        }
 
-            try
-            {
-                if (Request.HasFormContentType)
-                {
-                    Event newEvent = new Event()
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = Request.Form["Name"],
-                        Description = Request.Form["Description"],
-                        EntryFee = Decimal.Parse(Request.Form["EntryFee"]),
-                        LimitedSpace = int.Parse(Request.Form["LimitedSpace"]),
-                        Organizer = Request.Form["Organizer"],
-                        Lat = double.Parse(Request.Form["Lat"]),
-                        Long = double.Parse(Request.Form["Long"]),
-                        StartDate = DateTime.Parse(Request.Form["StartDate"]),
-                        EndDate = DateTime.Parse(Request.Form["EndDate"]),
-                        EventCategoryId = Guid.Parse(Request.Form["EventCategory"]),
-                        EventSubCategoryId = Guid.Parse(Request.Form["EventSubCategory"]),
-                        VenueId = Guid.Parse(Request.Form["Venue"])
-                    };
-
-                    _eventRepository.AddEvent(newEvent);
-
-                    ViewData["Message"] = "Added";
-                }
-            }
-            catch (Exception)
-            {
-                ViewData["Message"] = "Input is invalid.";
-            }
-
+        [HttpGet]
+        public IActionResult Add()
+        { 
             AddViewModel addViewModel = new AddViewModel()
             {
                 Categories = _eventCategoryRepository.GetEventCategories(),

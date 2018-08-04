@@ -9,50 +9,49 @@
         @using (Html.BeginForm("Add", "Home", FormMethod.Post))
         {
 
-            <label for="Name">Name</label>
-            <input type="text" name="Name" required />
+            <label asp-for="NewEvent.Name">Name</label>
+            <input type="text" asp-for="NewEvent.Name" required />
             <br />
 
-            <label for="Description">Description</label>
-            <input type="text" name="Description" required />
+            <label asp-for="NewEvent.Description">Description</label>
+            <input type="text" asp-for="NewEvent.Description" required />
             <br />
 
-            <label for="EntryFee">Entry Fee</label>
-            <input type="number" step="0.01" name="EntryFee" required />
+            <label asp-for="NewEvent.EntryFee">Entry Fee</label>
+            <input type="number" step="0.01" asp-for="NewEvent.EntryFee" required />
             <br />
 
-            <label for="LimitedSpace">Visitor limitation</label>
-            <input type="number" name="LimitedSpace" required />
+            <label asp-for="NewEvent.LimitedSpace">Visitor limitation</label>
+            <input type="number" asp-for="NewEvent.LimitedSpace" required />
             <br />
 
-            <label for="Organizer">Organizer</label>
-            <input type="text" name="Organizer" required />
+            <label asp-for="NewEvent.Organizer">Organizer</label>
+            <input type="text" asp-for="NewEvent.Organizer" required />
             <br />
 
-            <label for="Lat">Latitude</label>
-            <input type="number" step="any" name="Lat" required />
+            <label asp-for="NewEvent.Lat">Latitude</label>
+            <input type="number" step="any" asp-for="NewEvent.Lat" required />
             <br />
 
-            <label for="Long">Longitude</label>
-            <input type="number" step="any" name="Long" required />
+            <label asp-for="NewEvent.Long">Longitude</label>
+            <input type="number" step="any" asp-for="NewEvent.Long" required />
             <br />
 
-            <label for="StartDate">Start Date</label>
-            <input type="datetime" name="StartDate" required />
+            <label asp-for="NewEvent.StartDate">Start Date</label>
+            <input type="datetime" asp-for="NewEvent.StartDate" required />
             <br />
 
-            <label for="EndDate">End Date</label>
-            <input type="datetime" name="EndDate" required />
+            <label asp-for="NewEvent.EndDate">End Date</label>
+            <input type="datetime" asp-for="NewEvent.EndDate" required />
             <br />
 
-            @await Html.PartialAsync("EventCategorySelectPartial", Model.Categories);
+            @await Html.PartialAsync("EventCategorySelectPartial", Model);
 
-            @await Html.PartialAsync("EventSubCategorySelectPartial", Model.SubCategories);
+            @await Html.PartialAsync("EventSubCategorySelectPartial", Model);
 
-            @await Html.PartialAsync("VenueSelectPartial", Model.Venues);
+            @await Html.PartialAsync("VenueSelectPartial", Model);
 
             <input type="submit" value="Submit" />
         }
     </div>
 </div>
-@ViewData["Message"]

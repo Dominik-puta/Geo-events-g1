@@ -1,9 +1,10 @@
 ﻿@using GeoLocation.Model;
-@model List<EventSubCategory>
+@model AddViewModel
 
-<label for="EventSubCategory">Event Subcategory</label>
-<select name="EventSubCategory">
-    @foreach (var subCategory in Model)
+<label asp-for="NewEvent.EventSubCategoryId">Event Subcategory</label>
+<select asp-for="NewEvent.EventSubCategoryId" required>
+    <option value="" disabled selected>Select a subcategory</option>
+    @foreach (var subCategory in Model.SubCategories)
     {
         <option value='@subCategory.Id'>@subCategory.Name</option>
     }
