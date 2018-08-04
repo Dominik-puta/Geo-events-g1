@@ -1,9 +1,10 @@
 ﻿@using GeoLocation.Model;
-@model List<Venue>
+@model AddViewModel
 
-<label for="Venue">Venue</label>
-<select name="Venue">
-    @foreach (var venue in Model)
+<label asp-for="NewEvent.VenueId">Venue</label>
+<select asp-for="NewEvent.VenueId" required>
+    <option value="" disabled selected>Select a venue</option>
+    @foreach (var venue in Model.Venues)
     {
         <option value='@venue.Id'>@venue.Name</option>
     }

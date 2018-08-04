@@ -8,8 +8,9 @@ namespace GeoLocation.Repository.Common
 {
     public interface IEventRepository
     {
-        IEnumerable<IEvent> GetEvents();
+        IEnumerable<Event> GetEvents();
         void AddEvent(IEvent newEvent);
         void DeleteEvent(Guid EventId);
+        Event GetEventById(Guid EventId);
     }
 }

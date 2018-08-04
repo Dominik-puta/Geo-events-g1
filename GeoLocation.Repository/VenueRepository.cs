@@ -49,5 +49,32 @@ namespace GeoLocation.Repository
                 }
             }
         }
+
+        public Venue GetVenueById(Guid venueId)
+        {
+            using (conn = new NpgsqlConnection(_conStr))
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand())
+                {
+                    command.CommandText = "SELECT * FROM \"Venue\" WHERE \"Id\" = @id";
+                    command.Parameters.AddWithValue("id", venueId);
+                    command.Connection = conn;
+                    var dr = command.ExecuteReader();
+                    dr.Read();
+                    Venue newVenue = new Venue()
+                    {
+                        Id = (Guid)dr["Id"],
+                        Name = (string)dr["VenueName"],
+                        Description = (dr["Description"] is DBNull) ? string.Empty : (string)dr["Description"],
+                        Address = (dr["Address"] is DBNull) ? string.Empty : (string)dr["Address"],
+                        Phone = (dr["Phone"] is DBNull) ? string.Empty : (string)dr["Phone"],
+                        Email = (dr["Email"] is DBNull) ? string.Empty : (string)dr["Email"]
+                    };
+
+                    return newVenue;
+                }
+            }
+        }
     }
 }

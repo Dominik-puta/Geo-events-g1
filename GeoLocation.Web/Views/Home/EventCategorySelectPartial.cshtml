@@ -1,9 +1,10 @@
 ﻿@using GeoLocation.Model;
-@model IEnumerable<EventCategory>
+@model AddViewModel
 
-<label for="EventCategory">Event Category</label>
-<select name="EventCategory">
-    @foreach (var category in Model)
+<label asp-for="NewEvent.EventCategoryId">Event Category</label>
+<select asp-for="NewEvent.EventCategoryId" required>
+    <option value="" disabled selected>Select a category</option>
+    @foreach (var category in Model.Categories)
     {
         <option value='@category.Id'>@category.Name</option>
     }
