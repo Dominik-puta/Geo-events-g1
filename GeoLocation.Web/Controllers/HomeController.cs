@@ -18,18 +18,21 @@ namespace GeoLocation.Web.Controllers
         private IEventCategoryRepository _eventCategoryRepository;
         private IEventSubCategoryRepository _eventSubCategoryRepository;
         private IVenueRepository _venueRepository;
+        private IRsvpRepository _rsvpRepository;
 
         public HomeController(
             IEventRepository eventRepository, 
             IEventCategoryRepository eventCategoryRepository,
             IEventSubCategoryRepository eventSubCategoryRepository,
-            IVenueRepository venueRepository
+            IVenueRepository venueRepository,
+            IRsvpRepository rsvpRepository
             )
         {
             _eventRepository = eventRepository;
             _eventCategoryRepository = eventCategoryRepository;
             _eventSubCategoryRepository = eventSubCategoryRepository;
             _venueRepository = venueRepository;
+            _rsvpRepository = rsvpRepository;
         }
 
         public IActionResult Index()
@@ -71,7 +74,16 @@ namespace GeoLocation.Web.Controllers
             eventDetails.EventCategory = _eventCategoryRepository.GetCategoryById(eventDetails.Event.EventCategoryId);
             eventDetails.EventSubCategory = _eventSubCategoryRepository.GetSubCategoryById(eventDetails.Event.EventSubCategoryId);
             eventDetails.Venue = _venueRepository.GetVenueById(eventDetails.Event.VenueId);
+            eventDetails.Rsvp = new Rsvp { EventId = eventDetails.EventId };
             return View(eventDetails);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult Rsvp(Rsvp userInfo)
+        {
+            userInfo.Id = Guid.NewGuid();
+            bool succesful = _rsvpRepository.AddUser(userInfo);
+            return RedirectToAction("EventDetails", new EventDetailsViewModel { EventId = userInfo.EventId, UserLimitReached = !succesful });
         }
 
         public IActionResult Error()

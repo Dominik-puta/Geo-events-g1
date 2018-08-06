@@ -1,0 +1,19 @@
+﻿@using GeoLocation.Model;
+@model Rsvp
+
+
+@using(Html.BeginForm("Rsvp", "Home", FormMethod.Post))
+{
+    <label asp-for="FirstName">First name</label>
+    <input type="text" asp-for="FirstName" required />
+
+    <label asp-for="LastName">Last Name</label>
+    <input type="text" asp-for="LastName" required />
+
+    <label asp-for="Email">E-mail</label>
+    <input type="text" asp-for="Email" required />
+
+    <input asp-for="EventId" type="text" value='@Model.EventId' hidden />
+
+    <input type="submit" value="Submit" />
+}
