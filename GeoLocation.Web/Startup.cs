@@ -30,6 +30,7 @@ namespace GeoLocation.Web
             services.AddScoped(typeof(IEventCategoryRepository), typeof(EventCategoryRepository));
             services.AddScoped(typeof(IEventSubCategoryRepository), typeof(EventSubCategoryRepository));
             services.AddScoped(typeof(IVenueRepository), typeof(VenueRepository));
+            services.AddScoped(typeof(IRsvpRepository), typeof(RsvpRepository));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

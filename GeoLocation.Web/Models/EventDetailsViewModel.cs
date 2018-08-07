@@ -13,5 +13,8 @@ namespace GeoLocation.Web.Models
         public EventCategory EventCategory { get; set; }
         public EventSubCategory EventSubCategory { get; set; }
         public Venue Venue { get; set; }
+        public Rsvp Rsvp { get; set; }
+        
+        public bool UserLimitReached { get; set; }
     }
 }
