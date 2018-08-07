@@ -27,5 +27,6 @@ namespace GeoLocation.Model
         public string CategoryName { get; set; }
         public string SubCategoryName { get; set; }
         public string VenueName { get; set; }
+        public string StatusName { get; set; }
     }
 }

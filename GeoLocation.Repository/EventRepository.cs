@@ -30,7 +30,8 @@ namespace GeoLocation.Repository
                 NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM \"Event\"" +
                     "INNER JOIN \"EventCategory\" ON \"Event\".\"EventCategoryId\" = \"EventCategory\".\"Id\"" +
                     "INNER JOIN \"EventSubCategory\" ON \"Event\".\"EventSubCategoryId\" = \"EventSubCategory\".\"Id\"" +
-                    "INNER JOIN \"Venue\" ON \"Event\".\"VenueId\" = \"Venue\".\"Id\"", conn);
+                    "INNER JOIN \"Venue\" ON \"Event\".\"VenueId\" = \"Venue\".\"Id\"" +
+                    "INNER JOIN \"Status\" ON \"Event\".\"StatusId\" = \"Status\".\"Id\"", conn);
                 NpgsqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
                 {
@@ -53,7 +54,8 @@ namespace GeoLocation.Repository
                         // joined columns
                         CategoryName = (string)dr["CategoryName"],
                         SubCategoryName = (string)dr["SubCategoryName"],
-                        VenueName = (string)dr["VenueName"]
+                        VenueName = (string)dr["VenueName"],
+                        StatusName = (string)dr["StatusName"]
                     };
                     events.Add(newEvent);
                 }
