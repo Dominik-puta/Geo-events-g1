@@ -1,0 +1,21 @@
+﻿@using GeoLocation.Model;
+@model Comment
+
+<h4>Add a comment</h4>
+@using (Html.BeginForm("AddComment", "Home", FormMethod.Post))
+{
+    <label asp-for="FirstName">First name</label>
+    <input type="text" asp-for="FirstName" required />
+
+    <label asp-for="LastName">Last name</label>
+    <input type="text" asp-for="LastName" required />
+    <br />
+
+    <label asp-for="Text">Your comment</label><br />
+    <textarea style="width: 400px; height: 100px" asp-for="Text" required></textarea>
+
+    <input type="text" asp-for="EventId" value='@Model.EventId' hidden />
+    <br />
+    
+    <input type="submit" value="Submit" />
+}

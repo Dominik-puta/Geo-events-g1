@@ -14,6 +14,8 @@ namespace GeoLocation.Web.Models
         public EventSubCategory EventSubCategory { get; set; }
         public Venue Venue { get; set; }
         public Rsvp Rsvp { get; set; }
+        public IEnumerable<Comment> Comments { get; set; }
+        public Comment NewComment { get; set; }
         
         public bool UserLimitReached { get; set; }
     }

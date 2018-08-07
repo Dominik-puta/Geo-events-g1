@@ -19,20 +19,23 @@ namespace GeoLocation.Web.Controllers
         private IEventSubCategoryRepository _eventSubCategoryRepository;
         private IVenueRepository _venueRepository;
         private IRsvpRepository _rsvpRepository;
+        private ICommentRepository _commentRepository;
 
         public HomeController(
             IEventRepository eventRepository, 
             IEventCategoryRepository eventCategoryRepository,
             IEventSubCategoryRepository eventSubCategoryRepository,
             IVenueRepository venueRepository,
-            IRsvpRepository rsvpRepository
-            )
+            IRsvpRepository rsvpRepository,
+            ICommentRepository commentRepository
+        )
         {
             _eventRepository = eventRepository;
             _eventCategoryRepository = eventCategoryRepository;
             _eventSubCategoryRepository = eventSubCategoryRepository;
             _venueRepository = venueRepository;
             _rsvpRepository = rsvpRepository;
+            _commentRepository = commentRepository;
         }
 
         public IActionResult Index()
@@ -75,6 +78,8 @@ namespace GeoLocation.Web.Controllers
             eventDetails.EventSubCategory = _eventSubCategoryRepository.GetSubCategoryById(eventDetails.Event.EventSubCategoryId);
             eventDetails.Venue = _venueRepository.GetVenueById(eventDetails.Event.VenueId);
             eventDetails.Rsvp = new Rsvp { EventId = eventDetails.EventId };
+            eventDetails.Comments = _commentRepository.GetCommentsForEvent(eventDetails.EventId);
+            eventDetails.NewComment = new Comment { EventId = eventDetails.EventId };
             return View(eventDetails);
         }
 
@@ -86,6 +91,14 @@ namespace GeoLocation.Web.Controllers
             return RedirectToAction("EventDetails", new EventDetailsViewModel { EventId = userInfo.EventId, UserLimitReached = !succesful });
         }
 
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult AddComment(Comment newComment)
+        {
+            newComment.Id = Guid.NewGuid();
+            newComment.DateCreated = DateTime.Now;
+            _commentRepository.AddComment(newComment);
+            return RedirectToAction("EventDetails", new EventDetailsViewModel { EventId = newComment.EventId });
+        }
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

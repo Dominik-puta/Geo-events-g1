@@ -1,4 +1,5 @@
 ﻿@using GeoLocation.Model;
+@using Humanizer;
 @model EventDetailsViewModel
 
 <h2>@Model.Event.Name</h2>
@@ -25,4 +26,23 @@
 {
     <div>Sorry, the attendance limit on this event is reached.</div>
 }
+<hr />
 
+<h4>Comments</h4>
+@if (Model.Comments.Count() == 0)
+{
+    <p>There are no comments for this event.</p>
+}
+else
+{
+    @foreach (var comment in Model.Comments)
+    {
+        <p>
+            <strong>@comment.FirstName @comment.LastName</strong>, @comment.DateCreated.Humanize(utcDate: false)<br />
+            <i>@comment.Text</i>
+        </p>
+    }
+}
+
+<hr />
+@await Html.PartialAsync("AddCommentPartial", Model.NewComment)
