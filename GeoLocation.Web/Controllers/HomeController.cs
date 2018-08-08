@@ -20,6 +20,7 @@ namespace GeoLocation.Web.Controllers
         private IVenueRepository _venueRepository;
         private IRsvpRepository _rsvpRepository;
         private ICommentRepository _commentRepository;
+        private IStatusRepository _statusRepository;
 
         public HomeController(
             IEventRepository eventRepository, 
@@ -27,7 +28,8 @@ namespace GeoLocation.Web.Controllers
             IEventSubCategoryRepository eventSubCategoryRepository,
             IVenueRepository venueRepository,
             IRsvpRepository rsvpRepository,
-            ICommentRepository commentRepository
+            ICommentRepository commentRepository,
+            IStatusRepository statusRepository
         )
         {
             _eventRepository = eventRepository;
@@ -36,6 +38,7 @@ namespace GeoLocation.Web.Controllers
             _venueRepository = venueRepository;
             _rsvpRepository = rsvpRepository;
             _commentRepository = commentRepository;
+            _statusRepository = statusRepository;
         }
 
         public IActionResult Index()
@@ -48,6 +51,7 @@ namespace GeoLocation.Web.Controllers
         public IActionResult Add(AddViewModel model)
         {
             model.NewEvent.Id = Guid.NewGuid();
+            model.NewEvent.StatusId = Guid.Parse("7ca65c86-0e39-465f-874d-fcb3c9183f1b"); // privremeno rjesenje, stavlja status na upcoming
             _eventRepository.AddEvent(model.NewEvent);
             return RedirectToAction("Index");
         }

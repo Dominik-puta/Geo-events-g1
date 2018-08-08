@@ -104,7 +104,9 @@ namespace GeoLocation.Repository
                 using (var command = new NpgsqlCommand())
                 {
                     command.Connection = conn;
-                    command.CommandText = "DELETE FROM \"Event\" WHERE \"Id\" = @id";
+                    command.CommandText = "DELETE FROM \"Comment\" WHERE \"EventId\" = @id; " +
+                        "DELETE FROM \"Rsvp\" WHERE \"EventId\" = @id; " +
+                        "DELETE FROM \"Event\" WHERE \"Id\" = @id;";
                     command.Parameters.AddWithValue("id", eventId);
                     command.ExecuteNonQuery();
                 }
