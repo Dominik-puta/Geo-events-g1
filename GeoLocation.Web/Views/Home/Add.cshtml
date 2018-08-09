@@ -6,7 +6,7 @@
         Add a new event
     </div>
     <div class="panel-body">
-        @using (Html.BeginForm("Add", "Home", FormMethod.Post))
+        @using (Html.BeginForm("Add", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
 
             <label asp-for="NewEvent.Name">Name</label>
@@ -50,6 +50,10 @@
             @await Html.PartialAsync("EventSubCategorySelectPartial", Model);
 
             @await Html.PartialAsync("VenueSelectPartial", Model);
+
+            <label asp-for="Image">Image</label>
+            <input type="file" asp-for="Image" />
+            <br />
 
             <input type="submit" value="Submit" />
         }

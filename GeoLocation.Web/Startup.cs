@@ -33,6 +33,7 @@ namespace GeoLocation.Web
             services.AddScoped(typeof(IRsvpRepository), typeof(RsvpRepository));
             services.AddScoped(typeof(ICommentRepository), typeof(CommentRepository));
             services.AddScoped(typeof(IStatusRepository), typeof(StatusRepository));
+            services.AddScoped(typeof(IImageRepository), typeof(ImageRepository));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

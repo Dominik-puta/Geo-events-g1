@@ -1,4 +1,5 @@
 ﻿using GeoLocation.Model;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace GeoLocation.Web.Models
         public IEnumerable<EventCategory> Categories { get; set; }
         public IEnumerable<EventSubCategory> SubCategories { get; set; }
         public IEnumerable<Venue> Venues { get; set; }
+        public IFormFile Image { get; set; }
     }
 }

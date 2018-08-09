@@ -106,6 +106,7 @@ namespace GeoLocation.Repository
                     command.Connection = conn;
                     command.CommandText = "DELETE FROM \"Comment\" WHERE \"EventId\" = @id; " +
                         "DELETE FROM \"Rsvp\" WHERE \"EventId\" = @id; " +
+                        "DELETE FROM \"Image\" WHERE \"EventId\" = @id; " +
                         "DELETE FROM \"Event\" WHERE \"Id\" = @id;";
                     command.Parameters.AddWithValue("id", eventId);
                     command.ExecuteNonQuery();

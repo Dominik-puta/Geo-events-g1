@@ -46,3 +46,10 @@ else
 
 <hr />
 @await Html.PartialAsync("AddCommentPartial", Model.NewComment)
+
+@{
+    var base64 = Convert.ToBase64String(Model.Image.ImageFile);
+    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+}
+
+<img src="@imgSrc" />

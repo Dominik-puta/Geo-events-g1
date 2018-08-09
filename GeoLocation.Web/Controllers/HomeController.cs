@@ -9,6 +9,7 @@ using GeoLocation.Model;
 using GeoLocation.Model.Common;
 using GeoLocation.Repository;
 using GeoLocation.Repository.Common;
+using System.IO;
 
 namespace GeoLocation.Web.Controllers
 {
@@ -21,6 +22,7 @@ namespace GeoLocation.Web.Controllers
         private IRsvpRepository _rsvpRepository;
         private ICommentRepository _commentRepository;
         private IStatusRepository _statusRepository;
+        private IImageRepository _imageRepository;
 
         public HomeController(
             IEventRepository eventRepository, 
@@ -29,7 +31,8 @@ namespace GeoLocation.Web.Controllers
             IVenueRepository venueRepository,
             IRsvpRepository rsvpRepository,
             ICommentRepository commentRepository,
-            IStatusRepository statusRepository
+            IStatusRepository statusRepository,
+            IImageRepository imageRepository
         )
         {
             _eventRepository = eventRepository;
@@ -39,6 +42,7 @@ namespace GeoLocation.Web.Controllers
             _rsvpRepository = rsvpRepository;
             _commentRepository = commentRepository;
             _statusRepository = statusRepository;
+            _imageRepository = imageRepository;
         }
 
         public IActionResult Index()
@@ -50,9 +54,28 @@ namespace GeoLocation.Web.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Add(AddViewModel model)
         {
+            Image newImage = new Image
+            {
+                Id = Guid.NewGuid(),
+                FileName = model.Image.FileName,
+                Title = model.Image.Name
+            };
+
+            if(model.Image.Length > 0)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    model.Image.CopyTo(ms);
+                    var fileBytes = ms.ToArray();
+                    newImage.ImageFile = fileBytes;
+                }
+            }
+
             model.NewEvent.Id = Guid.NewGuid();
             model.NewEvent.StatusId = Guid.Parse("7ca65c86-0e39-465f-874d-fcb3c9183f1b"); // privremeno rjesenje, stavlja status na upcoming
+            newImage.EventId = model.NewEvent.Id;
             _eventRepository.AddEvent(model.NewEvent);
+            _imageRepository.AddImage(newImage);
             return RedirectToAction("Index");
         }
 
@@ -81,6 +104,7 @@ namespace GeoLocation.Web.Controllers
             eventDetails.EventCategory = _eventCategoryRepository.GetCategoryById(eventDetails.Event.EventCategoryId);
             eventDetails.EventSubCategory = _eventSubCategoryRepository.GetSubCategoryById(eventDetails.Event.EventSubCategoryId);
             eventDetails.Venue = _venueRepository.GetVenueById(eventDetails.Event.VenueId);
+            eventDetails.Image = _imageRepository.GetImage(eventDetails.EventId);
             eventDetails.Rsvp = new Rsvp { EventId = eventDetails.EventId };
             eventDetails.Comments = _commentRepository.GetCommentsForEvent(eventDetails.EventId);
             eventDetails.NewComment = new Comment { EventId = eventDetails.EventId };

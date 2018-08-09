@@ -16,6 +16,7 @@ namespace GeoLocation.Web.Models
         public Rsvp Rsvp { get; set; }
         public IEnumerable<Comment> Comments { get; set; }
         public Comment NewComment { get; set; }
+        public Image Image { get; set; }
         
         public bool UserLimitReached { get; set; }
     }
