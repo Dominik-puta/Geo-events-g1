@@ -4,56 +4,57 @@
 @{
     ViewData["Title"] = "Geo Events";
 }
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        @ViewData["Title"]
-    </div>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <td>Event</td>
-                <td>Description</td>
-                <td>Entry Fee</td>
-                <td>Limited Space</td>
-                <td>Organizer</td>
-                <td>Location</td>
-                <td>Start</td>
-                <td>End</td>
-                <td>Category</td>
-                <td>Subcategory</td>
-                <td>Venue</td>
-                <td></td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr onclick="location.href = '@(Url.Action("EventDetails", "Home", new EventDetailsViewModel{ EventId = item.Id }))'" 
-                    style="cursor: pointer">
-                    <td>@item.Name</td>
-                    <td>@item.Description</td>
-                    <td>@item.EntryFee kn</td>
-                    <td>@item.LimitedSpace</td>
-                    <td>@item.Organizer</td>
-                    <td>
-                        <a href='@string.Format("https://www.google.com/maps/search/?api=1&query={0},{1}", item.Lat, item.Long)'>
-                            @item.Lat,
-                            @item.Long
-                        </a>
-                    </td>
-                    <td>@item.StartDate</td>
-                    <td>@item.EndDate</td>
-                    <td>@item.CategoryName</td>
-                    <td>@item.SubCategoryName</td>
-                    <td>@item.VenueName</td>
-                    <td style="vertical-align: middle">
-                        <a asp-controller="Home" asp-action="DeleteEvent" asp-route-id='@item.Id'>
-                            &#x2716
-                        </a>
-                    </td>
+<div class="container"> 
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            @ViewData["Title"]
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td>Event</td>
+                    <td>Description</td>
+                    <td>Entry Fee</td>
+                    <td>Limited Space</td>
+                    <td>Organizer</td>
+                    <td>Location</td>
+                    <td>Start</td>
+                    <td>End</td>
+                    <td>Category</td>
+                    <td>Subcategory</td>
+                    <td>Venue</td>
+                    <td></td>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr onclick="location.href = '@(Url.Action("EventDetails", "Home", new EventDetailsViewModel{ EventId = item.Id }))'" 
+                        style="cursor: pointer">
+                        <td>@item.Name</td>
+                        <td>@item.Description</td>
+                        <td>@item.EntryFee kn</td>
+                        <td>@item.LimitedSpace</td>
+                        <td>@item.Organizer</td>
+                        <td>
+                            <a href='@string.Format("https://www.google.com/maps/search/?api=1&query={0},{1}", item.Lat, item.Long)'>
+                                @item.Lat,
+                                @item.Long
+                            </a>
+                        </td>
+                        <td>@item.StartDate</td>
+                        <td>@item.EndDate</td>
+                        <td>@item.CategoryName</td>
+                        <td>@item.SubCategoryName</td>
+                        <td>@item.VenueName</td>
+                        <td style="vertical-align: middle">
+                            <a asp-controller="Home" asp-action="DeleteEvent" asp-route-id='@item.Id'>
+                                &#x2716
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

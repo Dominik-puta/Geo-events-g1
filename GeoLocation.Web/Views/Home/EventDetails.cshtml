@@ -2,10 +2,38 @@
 @using Humanizer;
 @model EventDetailsViewModel
 
-<h2>@Model.Event.Name</h2>
-<h4>@Model.Event.Description</h4>
-<div>@Model.Event.StartDate - @Model.Event.EndDate</div>
+@{
+        var base64 = Convert.ToBase64String(Model.Image.ImageFile);
+        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+}
 
+<div class="imageContainer" style="background-image: url(@imgSrc);">
+    <div class="imageOverlay">
+        <div class="category">@Model.EventCategory.Name—@Model.EventSubCategory.Name</div>
+        <div class="title">@Model.Event.Name</div>
+        <div class="description">@Model.Event.Description</div>
+    </div>
+</div>
+
+<div class="timebox">
+    <div class="start">
+        <div class="timeInscription">Počinje</div>
+        <div class="date">@Model.Event.StartDate.ToString("dd/MM/yyyy")</div>
+        <div class="time">@Model.Event.StartDate.ToString("HH:mm") sati</div>
+    </div>
+    <div class="end">
+        <div class="timeInscription">Završava</div>
+        <div class="date">@Model.Event.EndDate.ToString("dd/MM/yyyy")</div>
+        <div class="time">@Model.Event.EndDate.ToString("HH:mm") sati</div>
+    </div>
+    <div class="vl"></div>
+</div>
+
+<div class="rsvp">
+    RSVP
+</div>
+
+<br /><br />
 <h3>@Model.Venue.Name</h3>
 <div>
     <ul>
@@ -46,10 +74,3 @@ else
 
 <hr />
 @await Html.PartialAsync("AddCommentPartial", Model.NewComment)
-
-@{
-    var base64 = Convert.ToBase64String(Model.Image.ImageFile);
-    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-}
-
-<img src="@imgSrc" />

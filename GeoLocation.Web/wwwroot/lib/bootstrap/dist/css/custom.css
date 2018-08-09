@@ -1,0 +1,124 @@
+﻿body {
+    font-family: 'Roboto', sans-serif;
+}
+.navbar-inverse .navbar-nav li a {
+    color: white;
+}
+
+.navbar-inverse .navbar-brand {
+    color: white;
+}
+
+.imageContainer {
+    text-align: center;
+    width: 100%;
+    height: 400px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.category {
+    font-size: medium;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    padding-top: 150px;
+    font-weight: bold;
+}
+
+.title {
+    color: #FFFFFF;
+    font-size: 48px;
+    font-weight: 300;
+    letter-spacing: 1.18px
+}
+
+.description {
+    color: white;
+    width: 40%;
+    height: 100px;
+    margin-left: 30%
+}
+
+.imageOverlay {
+    display: block;
+    position: relative;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1A1F59;
+    opacity: 0.68;
+}
+
+.timebox {
+    height: 125px;
+    width: 40%;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 15px 0 rgba(0,0,0,0.5);
+    display: block;
+    position: relative;
+    top: -50px;
+    text-align: center;
+    margin: auto;
+    z-index: 2;
+}
+
+.vl {
+    display: block;
+    border-left: 1px solid #979797;
+    height: 125px;
+    position: absolute;
+    left: 50%;
+    margin-left: -3px;
+    top: 0;
+}
+
+.start, .end {
+    width: 50%;
+    text-align: center;
+}
+
+.timeInscription {
+    font-size: 12px;
+    text-align: center;
+    text-transform: uppercase;
+    padding-top: 20px;
+    color: #5E5E5E;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.start {
+    float: left;
+}
+
+.end {
+    float: right;
+}
+
+.date {
+    padding-top: 12px;
+    color: #5E5E5E;
+    font-size: 18px;
+}
+
+.time {
+    padding-top: 6px;
+    color: #4853C1;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 0.6px;
+    line-height: 28px;
+    text-align: center;
+}
+
+.rsvp {
+    display: block;
+    width: 56%;
+    float: left;
+    margin-left: 50px;
+    box-shadow: 0 2px 15px 0 rgba(0,0,0,0.2);
+}
