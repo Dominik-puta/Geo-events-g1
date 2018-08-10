@@ -4,16 +4,29 @@
 
 @using(Html.BeginForm("Rsvp", "Home", FormMethod.Post))
 {
-    <label asp-for="FirstName">First name</label>
-    <input type="text" asp-for="FirstName" required />
+    <div class="firstname-box">
+        <label asp-for="FirstName">Ime</label><br />
+        <input type="text" asp-for="FirstName" class="input" placeholder="Unesite ime" required/>
+    </div>
 
-    <label asp-for="LastName">Last Name</label>
-    <input type="text" asp-for="LastName" required />
+    <div class="lastname-box">
+        <label asp-for="LastName">Prezime</label><br />
+        <input type="text" asp-for="LastName" class="input" placeholder="Unesite ime" required/>
+    </div>
 
-    <label asp-for="Email">E-mail</label>
-    <input type="email" asp-for="Email" required />
+    <div class="email-box">
+        <label asp-for="Email">E-mail</label>
+        <input type="email" asp-for="Email" class="input" placeholder="Unesite e-mail" required/>
+    </div>
 
     <input asp-for="EventId" type="text" value='@Model.EventId' hidden />
 
-    <input type="submit" value="Submit" />
+    <div class="hl"></div>
+
+    <input type="submit" value="Dolazim 🎉" class="submit-button" />
+
+    <div class="terms-checkbox">
+        <input type="checkbox" required />
+        Prihvaćam uvjete korištenja moje e-mail adrese
+    </div>
 }

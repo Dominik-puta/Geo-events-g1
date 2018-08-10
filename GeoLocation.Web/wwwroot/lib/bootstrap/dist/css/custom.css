@@ -12,14 +12,19 @@
 .imageContainer {
     text-align: center;
     width: 100%;
-    height: 400px;
+    height: 482px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
 }
 
+.category, .title, .description {
+    position: relative;
+    z-index: 2;
+}
+
 .category {
-    font-size: medium;
+    font-size: 14px;
     text-transform: uppercase;
     color: #FFFFFF;
     padding-top: 150px;
@@ -42,12 +47,12 @@
 
 .imageOverlay {
     display: block;
-    position: relative;
-    z-index: 2;
+    position: absolute;
+    z-index: 1;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 482px;
     background-color: #1A1F59;
     opacity: 0.68;
 }
@@ -74,6 +79,13 @@
     left: 50%;
     margin-left: -3px;
     top: 0;
+}
+
+.hl {
+    display: block;
+    border-top: 1px solid #979797;
+    width: 100%;
+    margin-top: 52px;
 }
 
 .start, .end {
@@ -115,10 +127,160 @@
     text-align: center;
 }
 
-.rsvp {
+.rsvpContainer {
     display: block;
-    width: 56%;
+    width: 50%;
     float: left;
     margin-left: 50px;
+    margin-bottom: 90px;
+}
+
+.venueContainer {
+    margin-right: 50px;
+    display: block;
+    float: right;
+    width: 35%;
+    margin-bottom: 90px;
+}
+
+.section-title {
+    color: #4853C1;
+    font-size: 24px;
+}
+
+.section-box {
+    height: 418px;
+    width: 100%;
     box-shadow: 0 2px 15px 0 rgba(0,0,0,0.2);
+    background-color: #FFFFFF;
+    margin-top: 20px;
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+.submit-button {
+    margin-top: 38px;
+    color: #FFFFFF;
+    font-size: 22px;
+    letter-spacing: 1.22px;
+    line-height: 30px;
+    width: 218px;
+    height: 63px;
+    border-radius: 6px;
+    background: linear-gradient(66.99deg, #4953C1 0%, #B85252 100%);
+    box-shadow: 0 6px 10px -1px rgba(0,0,0,0.2);
+    margin-right: 43px;
+}
+
+.input {
+    height: 57px;
+    width: 100%;
+    border: 1px solid #979797;
+    border-radius: 6px;
+    padding-left: 15px;
+}
+
+label {
+    color: #5E5E5E;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    line-height: 14px;
+    text-transform: uppercase;
+}
+
+.firstname-box, .lastname-box {
+    padding-top: 30px;
+    width: 49.6%;
+    display: inline-block;
+}
+
+.firstname-box {
+    padding-right: 12px;
+}
+
+.email-box {
+    padding-top: 32px;
+    display: block;
+    width: 100%;
+}
+
+.terms-checkbox {
+    color: #AAAAAA;
+    font-size: 18px;
+    letter-spacing: 0.3px;
+    line-height: 21px;
+    display: inline-block;
+    padding-top: 20px;
+    margin-bottom: 20px;
+}
+
+.venue-box {
+    padding: 18px;
+}
+
+#map {
+    width: 100%;
+    height: 275px;
+}
+
+.venue-info-container {
+    padding-top: 40px;
+    padding-bottom: 40px
+}
+
+.venue-info {
+    width: 40%;
+    display: block;
+    float: left;
+    color: #494949;
+    font-size: 14px;
+    letter-spacing: 0.35px;
+    margin-bottom: 20px;
+}
+
+.banner {
+    background-color: #4853C0;
+    height: 237px;
+    width: 100%;
+    margin-top: 621px;
+}
+
+.banner-info-container {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    color: #FFFFFF;
+    width: 33%;
+}
+
+.banner-info{
+    width: 50%;
+    display: block;
+}
+
+.banner-icon {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 38px;
+    height: 59px;
+    width: auto;
+}
+
+.banner-label {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 21px;
+}
+
+.banner-data {
+    font-size: 47px;
+    font-weight: 300;
+    letter-spacing: 1.18px;
+    line-height: 55px;
+    margin-top: 12px;
 }

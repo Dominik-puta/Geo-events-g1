@@ -3,37 +3,87 @@
 @model EventDetailsViewModel
 
 @{
-        var base64 = Convert.ToBase64String(Model.Image.ImageFile);
-        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    var base64 = Convert.ToBase64String(Model.Image.ImageFile);
+    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 }
-
-<div class="imageContainer" style="background-image: url(@imgSrc);">
-    <div class="imageOverlay">
+<div>
+    <div class="imageContainer" style="background-image: url(@imgSrc);">
         <div class="category">@Model.EventCategory.Name—@Model.EventSubCategory.Name</div>
         <div class="title">@Model.Event.Name</div>
         <div class="description">@Model.Event.Description</div>
+        <div class="imageOverlay"></div>
+    </div>
+
+    <div class="timebox">
+        <div class="start">
+            <div class="timeInscription">Počinje</div>
+            <div class="date">@Model.Event.StartDate.ToString("dd/MM/yyyy")</div>
+            <div class="time">@Model.Event.StartDate.ToString("HH:mm") sati</div>
+        </div>
+        <div class="end">
+            <div class="timeInscription">Završava</div>
+            <div class="date">@Model.Event.EndDate.ToString("dd/MM/yyyy")</div>
+            <div class="time">@Model.Event.EndDate.ToString("HH:mm") sati</div>
+        </div>
+        <div class="vl"></div>
+    </div>
+
+    <div class="rsvpContainer">
+        <div class="section-title">Potvrdite dolazak</div>
+        <div class="section-box">
+            @await Html.PartialAsync("RsvpPartial", Model.Rsvp)
+        </div>
+    </div>
+
+    <div class="venueContainer">
+        <div class="section-title">Lokacija</div>
+        <div class="section-box venue-box">
+            <div id="map"></div>
+            <div class="venue-info-container">
+                <div class="venue-info" style="margin-left: 10px"><img src="~/images/location_on - material.png" /> @Model.Venue.Name</div>
+                <div class="venue-info" style="float: right; margin-right: 10px;"><img src="~/images/phone_android - material.png" /> @Model.Venue.Phone</div>
+                <div class="venue-info" style="margin-left: 10px"><img src="~/images/home - material.png" /> @Model.Venue.Address</div>
+                <div class="venue-info" style="float: right; margin-right: 10px;"><img src="~/images/email - material.png" /> @Model.Venue.Email</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="banner">
+        <div class="banner-info-container">
+            <div class="banner-info" style="float: left">
+                <img src="~/images/attach_money - material.png" class="banner-icon" />
+                <div class="banner-label">Cijena</div>
+                <div class="banner-data">@Model.Event.EntryFee kn</div>
+            </div>
+            <div class="banner-info" style="float: right">
+                <img src="~/images/people - material.png" class="banner-icon" />
+                <div class="banner-label">Broj mjesta</div>
+                <div class="banner-data">
+                    @if (Model.Event.LimitedSpace == 0)
+                    {
+                        <div style="font-size: 40px">Neograničeno</div>
+                    }
+                    else
+                    {
+                        <div>@Model.Event.LimitedSpace.ToString("N0")</div>
+                    }
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="timebox">
-    <div class="start">
-        <div class="timeInscription">Počinje</div>
-        <div class="date">@Model.Event.StartDate.ToString("dd/MM/yyyy")</div>
-        <div class="time">@Model.Event.StartDate.ToString("HH:mm") sati</div>
-    </div>
-    <div class="end">
-        <div class="timeInscription">Završava</div>
-        <div class="date">@Model.Event.EndDate.ToString("dd/MM/yyyy")</div>
-        <div class="time">@Model.Event.EndDate.ToString("HH:mm") sati</div>
-    </div>
-    <div class="vl"></div>
-</div>
-
-<div class="rsvp">
-    RSVP
-</div>
-
-<br /><br />
+<script>
+    function initMap() {
+        var location = { lat: Number(@Model.Event.Lat), lng: Number(@Model.Event.Long) };
+        var map = new google.maps.Map(document.getElementById('map'), { zoom: 4, center: location });
+        var marker = new google.maps.Marker({ position: location, map: map });
+    }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCaVy0dd6U_DQTvY6GFx09P9-QNyau_L4&callback=initMap">
+</script>
+@*<br /><br />
 <h3>@Model.Venue.Name</h3>
 <div>
     <ul>
@@ -73,4 +123,4 @@ else
 }
 
 <hr />
-@await Html.PartialAsync("AddCommentPartial", Model.NewComment)
+@await Html.PartialAsync("AddCommentPartial", Model.NewComment)*@
