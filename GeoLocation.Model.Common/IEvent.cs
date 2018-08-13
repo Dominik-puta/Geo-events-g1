@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GeoLocation.Model;
 
 namespace GeoLocation.Model.Common
 {

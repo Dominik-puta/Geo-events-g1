@@ -21,7 +21,9 @@
 
     <input asp-for="EventId" type="text" value='@Model.EventId' hidden />
 
-    <div class="hl"></div>
+    <div class="hl" style="color: #AAAAAA; font-size: 16px">
+        @ViewData["Message"]
+    </div>
 
     <input type="submit" value="Dolazim 🎉" class="submit-button" />
 

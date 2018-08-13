@@ -48,6 +48,10 @@ namespace GeoLocation.Web.Controllers
         public IActionResult Index()
         {
             var events = _eventRepository.GetEvents();
+            foreach (var item in events)
+            {
+                item.Image = _imageRepository.GetImage(item.Id);
+            }
             return View(events);
         }
 
@@ -108,6 +112,7 @@ namespace GeoLocation.Web.Controllers
             eventDetails.Rsvp = new Rsvp { EventId = eventDetails.EventId };
             eventDetails.Comments = _commentRepository.GetCommentsForEvent(eventDetails.EventId);
             eventDetails.NewComment = new Comment { EventId = eventDetails.EventId };
+            if (eventDetails.UserLimitReached) ViewData["Message"] = "Sva mjesta za ovaj događaj su popunjena.";
             return View(eventDetails);
         }
 
