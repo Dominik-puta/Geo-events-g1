@@ -1,61 +1,78 @@
 ﻿@using GeoLocation.Web.Models
 @model AddViewModel
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        Add a new event
-    </div>
-    <div class="panel-body">
-        @using (Html.BeginForm("Add", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
+<div class="form-container">
+    @using (Html.BeginForm("Add", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="form-group col-md-12">
+            <label asp-for="NewEvent.Name">Ime</label>
+            <input class="form-control" type="text" asp-for="NewEvent.Name" placeholder="Unesite ime događaja" required />
+        </div>
 
-            <label asp-for="NewEvent.Name">Name</label>
-            <input type="text" asp-for="NewEvent.Name" required />
-            <br />
+        <div class="form-group col-md-12">
+            <label asp-for="NewEvent.Description">Opis</label>
+            <textarea class="form-control" type="text" asp-for="NewEvent.Description" placeholder="Unesite opis" required></textarea>
+        </div>
 
-            <label asp-for="NewEvent.Description">Description</label>
-            <input type="text" asp-for="NewEvent.Description" required />
-            <br />
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="NewEvent.EntryFee">Cijena</label>
+                <input class="form-control" type="number" step="0.01" asp-for="NewEvent.EntryFee" placeholder="Unesite cijenu" required />
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="NewEvent.LimitedSpace">Broj mjesta</label>
+                <input class="form-control" type="number" asp-for="NewEvent.LimitedSpace" placeholder="Unesite broj mjesta" required />
+            </div>
+        </div>
 
-            <label asp-for="NewEvent.EntryFee">Entry Fee</label>
-            <input type="number" step="0.01" asp-for="NewEvent.EntryFee" required />
-            <br />
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="NewEvent.Organizer">Organizator</label>
+                <input class="form-control" type="text" asp-for="NewEvent.Organizer" placeholder="Unesite ime organizatora" required />
+            </div>
+            <div class="form-group col-md-6">
+                @await Html.PartialAsync("VenueSelectPartial", Model)
+            </div>
+        </div>
 
-            <label asp-for="NewEvent.LimitedSpace">Visitor limitation</label>
-            <input type="number" asp-for="NewEvent.LimitedSpace" required />
-            <br />
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="NewEvent.StartDate">Početak</label>
+                <input class="form-control" type="datetime" asp-for="NewEvent.StartDate" placeholder="Unesite datum i vrijeme početka" required />
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="NewEvent.EndDate">Kraj</label>
+                <input class="form-control" type="datetime" asp-for="NewEvent.EndDate" placeholder="Unesite datum i vrijeme završetka" required />
+            </div>
+        </div>
 
-            <label asp-for="NewEvent.Organizer">Organizer</label>
-            <input type="text" asp-for="NewEvent.Organizer" required />
-            <br />
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="NewEvent.Lat">Latitude</label>
+                <input class="form-control" type="number" step="any" asp-for="NewEvent.Lat" required />
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="NewEvent.Long">Longitude</label>
+                <input class="form-control" type="number" step="any" asp-for="NewEvent.Long" required />
+            </div>
+        </div>
 
-            <label asp-for="NewEvent.Lat">Latitude</label>
-            <input type="number" step="any" asp-for="NewEvent.Lat" required />
-            <br />
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                @await Html.PartialAsync("EventCategorySelectPartial", Model)
+            </div>
+            <div class="form-group col-md-6">
+                @await Html.PartialAsync("EventSubCategorySelectPartial", Model)
+            </div>
+        </div>
 
-            <label asp-for="NewEvent.Long">Longitude</label>
-            <input type="number" step="any" asp-for="NewEvent.Long" required />
-            <br />
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label asp-for="Image">Slika</label>
+                <input class="form-control" type="file" asp-for="Image" accept="image/*"/>
+            </div>
+        </div>
 
-            <label asp-for="NewEvent.StartDate">Start Date</label>
-            <input type="text" asp-for="NewEvent.StartDate" required />
-            <br />
-
-            <label asp-for="NewEvent.EndDate">End Date</label>
-            <input type="datetime" asp-for="NewEvent.EndDate" required />
-            <br />
-
-            @await Html.PartialAsync("EventCategorySelectPartial", Model);
-
-            @await Html.PartialAsync("EventSubCategorySelectPartial", Model);
-
-            @await Html.PartialAsync("VenueSelectPartial", Model);
-
-            <label asp-for="Image">Image</label>
-            <input type="file" asp-for="Image" />
-            <br />
-
-            <input type="submit" value="Submit" />
-        }
-    </div>
+        <input type="submit" value="Stvori događaj" class="submit-button" style="margin-left: 15px"/>
+     }
 </div>

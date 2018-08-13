@@ -1,21 +1,27 @@
 ﻿@using GeoLocation.Model;
 @model Comment
 
-<h4>Add a comment</h4>
 @using (Html.BeginForm("AddComment", "Home", FormMethod.Post))
 {
-    <label asp-for="FirstName">First name</label>
-    <input type="text" asp-for="FirstName" required />
+    <div class="firstname-box" style="width: 30%">
+        <label asp-for="FirstName">Ime</label><br />
+        <input type="text" class=input asp-for="FirstName" placeholder="Unesite ime" required/>
+    </div>
 
-    <label asp-for="LastName">Last name</label>
-    <input type="text" asp-for="LastName" required />
-    <br />
+    <div class="lastname-box" style="width: 30%">
+        <label asp-for="LastName">Prezime</label><br />
+        <input type="text"class="input" asp-for="LastName" placeholder="Unesite prezime" required />
+    </div>
 
-    <label asp-for="Text">Your comment</label><br />
-    <textarea style="width: 400px; height: 100px" asp-for="Text" required></textarea>
+    <div class="comment-box">
+        <label asp-for="Text">Komentar</label><br />
+        <textarea class="input" style="width: 100%; height: 184px" asp-for="Text" placeholder="Komentiraj!" required></textarea>
+    </div>
+
+    <div class="hl" style="margin-top: 26px;"></div>
 
     <input type="text" asp-for="EventId" value='@Model.EventId' hidden />
     <br />
     
-    <input type="submit" value="Submit" />
+    <input type="submit" value="Pošalji" class="submit-button" style="margin-top: 10px"/>
 }

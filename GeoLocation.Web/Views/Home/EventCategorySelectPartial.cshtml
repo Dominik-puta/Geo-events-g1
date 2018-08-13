@@ -1,12 +1,11 @@
 ﻿@using GeoLocation.Model;
 @model AddViewModel
 
-<label asp-for="NewEvent.EventCategoryId">Event Category</label>
-<select asp-for="NewEvent.EventCategoryId" required>
-    <option value="" disabled selected>Select a category</option>
+<label asp-for="NewEvent.EventCategoryId">Kategorija</label>
+<select class="form-control" asp-for="NewEvent.EventCategoryId" required>
+    <option value="" disabled selected>Odaberite kategoriju</option>
     @foreach (var category in Model.Categories)
     {
         <option value='@category.Id'>@category.Name</option>
     }
 </select>
-<br />

@@ -71,6 +71,28 @@
             </div>
         </div>
     </div>
+
+    <div class="comment-container">
+        <div class="section-title">Komentari</div>
+        @if (Model.Comments.Count() == 0)
+        {
+            <div class="message" >
+                Trenutno nema komentara. Budite prvi!
+            </div>
+            <div class="hl"></div>
+        }
+        <div class="section-box" style="height: 507px">
+            @await Html.PartialAsync("AddCommentPartial", Model.NewComment)
+        </div>
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="section-box comment">
+                <div class="comment-name">@comment.FirstName @comment.LastName</div>
+                <div class="comment-timestamp">@comment.DateCreated.Humanize()</div>
+                <div class="comment-text">@comment.Text</div>
+            </div>
+        }
+    </div>
 </div>
 
 <script>
