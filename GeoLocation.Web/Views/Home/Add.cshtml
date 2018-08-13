@@ -38,11 +38,11 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label asp-for="NewEvent.StartDate">Početak</label>
-                <input class="form-control" type="datetime" asp-for="NewEvent.StartDate" placeholder="Unesite datum i vrijeme početka" required />
+                <input class="form-control" type="datetime-local" asp-for="NewEvent.StartDate" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" required />
             </div>
             <div class="form-group col-md-6">
                 <label asp-for="NewEvent.EndDate">Kraj</label>
-                <input class="form-control" type="datetime" asp-for="NewEvent.EndDate" placeholder="Unesite datum i vrijeme završetka" required />
+                <input class="form-control" type="datetime-local" asp-for="NewEvent.EndDate" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" required />
             </div>
         </div>
 
