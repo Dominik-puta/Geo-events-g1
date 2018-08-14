@@ -88,14 +88,14 @@
     });
     var map = new H.Map(document.getElementById('map'),
         defaultLayers.normal.map, {
-            center: { lat: 45, lng: 18 },
-            zoom: 7,
+            center: { lat: 45.5519216, lng: 18.6866134 },
+            zoom: 8,
             pixelRatio: pixelRatio
         });
     var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
     var ui = H.ui.UI.createDefault(map, defaultLayers);
 
-    var marker = new H.map.Marker({ lat: 45, lng: 18 });
+    var marker = new H.map.Marker({ lat: 45.5519216, lng: 18.6866134 });
     // Ensure that the marker can receive drag events
     marker.draggable = true;
     map.addObject(marker);

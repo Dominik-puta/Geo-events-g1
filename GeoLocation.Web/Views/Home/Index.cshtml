@@ -70,14 +70,14 @@
     });
     var map = new H.Map(document.getElementById('map'),
         defaultLayers.normal.map, {
-            center: { lat: 45, lng: 18 },
-            zoom: 7,
+            center: { lat: 45.5519216, lng: 18.6866134 },
+            zoom: 8,
             pixelRatio: pixelRatio
         });
     var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
     var ui = H.ui.UI.createDefault(map, defaultLayers);
 
-    var marker = new H.map.Marker({ lat: 45, lng: 18 });
+    var marker = new H.map.Marker({ lat: 45.5519216, lng: 18.6866134 });
     // Ensure that the marker can receive drag events
     marker.draggable = true;
     map.addObject(marker);
@@ -117,60 +117,3 @@
         }
     }, false);
 </script>
-@*@{
-        ViewData["Title"] = "Geo Events";
-    }
-    <div class="container body-content">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                @ViewData["Title"]
-            </div>
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <td>Event</td>
-                        <td>Description</td>
-                        <td>Entry Fee</td>
-                        <td>Limited Space</td>
-                        <td>Organizer</td>
-                        <td>Location</td>
-                        <td>Start</td>
-                        <td>End</td>
-                        <td>Category</td>
-                        <td>Subcategory</td>
-                        <td>Venue</td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr onclick="location.href = '@(Url.Action("EventDetails", "Home", new EventDetailsViewModel{ EventId = item.Id }))'"
-                            style="cursor: pointer">
-                            <td>@item.Name</td>
-                            <td>@item.Description</td>
-                            <td>@item.EntryFee kn</td>
-                            <td>@item.LimitedSpace</td>
-                            <td>@item.Organizer</td>
-                            <td>
-                                <a href='@string.Format("https://www.google.com/maps/search/?api=1&query={0},{1}", item.Lat, item.Long)'>
-                                    @item.Lat,
-                                    @item.Long
-                                </a>
-                            </td>
-                            <td>@item.StartDate</td>
-                            <td>@item.EndDate</td>
-                            <td>@item.CategoryName</td>
-                            <td>@item.SubCategoryName</td>
-                            <td>@item.VenueName</td>
-                            <td style="vertical-align: middle">
-                                <a asp-controller="Home" asp-action="DeleteEvent" asp-route-id='@item.Id'>
-                                    &#x2716
-                                </a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>*@
