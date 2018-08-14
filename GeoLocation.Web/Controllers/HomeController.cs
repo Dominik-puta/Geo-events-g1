@@ -10,6 +10,7 @@ using GeoLocation.Model.Common;
 using GeoLocation.Repository;
 using GeoLocation.Repository.Common;
 using System.IO;
+using Geolocation;
 
 namespace GeoLocation.Web.Controllers
 {
@@ -45,15 +46,28 @@ namespace GeoLocation.Web.Controllers
             _imageRepository = imageRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchString, double lat, double lng, float radius)
         {
             var events = _eventRepository.GetEvents();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                events = events.Where(e => e.Name.ToLower().Contains(searchString.ToLower()));
+            }
+
             foreach (var item in events)
             {
                 item.Image = _imageRepository.GetImage(item.Id);
             }
-            return View(events);
+
+            if(!Double.IsNaN(lat) && !Double.IsNaN(lng) && lat != 0 && lng != 0)
+            {
+                events = events.Where(e => GeoCalculator.GetDistance(e.Lat, e.Long, lat, lng, 1, DistanceUnit.Kilometers) <= radius);                
+            }
+
+            return View(events.ToList());
         }
+
 
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Add(AddViewModel model)
@@ -132,6 +146,7 @@ namespace GeoLocation.Web.Controllers
             _commentRepository.AddComment(newComment);
             return RedirectToAction("EventDetails", new EventDetailsViewModel { EventId = newComment.EventId });
         }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
