@@ -147,5 +147,47 @@ namespace GeoLocation.Repository
                 }
             }
         }
+
+        public void UpdateEvent(Event updatedEvent)
+        {
+            using (conn = new NpgsqlConnection(_conStr))
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand())
+                {
+                    command.Connection = conn;
+                    command.CommandText = "UPDATE \"Event\"" +
+                        "SET \"Name\" = @name, " +
+                        "\"Description\" = @desc, " +
+                        "\"EntryFee\" = @entryFee, " +
+                        "\"LimitedSpace\" = @limitedSpace, " +
+                        "\"Organizer\" = @org, " +
+                        "\"Lat\" = @lat, " +
+                        "\"Long\" = @long, " +
+                        "\"StartDate\" = @startDate, " +
+                        "\"EndDate\" = @endDate, " +
+                        "\"EventCategoryId\" = @catId, " +
+                        "\"EventSubCategoryId\" = @subCatId, " +
+                        "\"VenueId\" = @venueId, " +
+                        "\"StatusId\" = @statusId " +
+                        "WHERE \"Id\" = @id;";
+                    command.Parameters.AddWithValue("name", updatedEvent.Name);
+                    command.Parameters.AddWithValue("desc", updatedEvent.Description);
+                    command.Parameters.AddWithValue("entryFee", updatedEvent.EntryFee);
+                    command.Parameters.AddWithValue("limitedSpace", updatedEvent.LimitedSpace);
+                    command.Parameters.AddWithValue("org", updatedEvent.Organizer);
+                    command.Parameters.AddWithValue("lat", updatedEvent.Lat);
+                    command.Parameters.AddWithValue("long", updatedEvent.Long);
+                    command.Parameters.AddWithValue("startDate", updatedEvent.StartDate);
+                    command.Parameters.AddWithValue("endDate", updatedEvent.EndDate);
+                    command.Parameters.AddWithValue("catId", updatedEvent.EventCategoryId);
+                    command.Parameters.AddWithValue("subCatId", updatedEvent.EventSubCategoryId);
+                    command.Parameters.AddWithValue("venueId", updatedEvent.VenueId);
+                    command.Parameters.AddWithValue("statusId", updatedEvent.StatusId);
+                    command.Parameters.AddWithValue("id", updatedEvent.Id);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

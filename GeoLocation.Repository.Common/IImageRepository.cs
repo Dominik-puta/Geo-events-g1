@@ -9,5 +9,6 @@ namespace GeoLocation.Repository.Common
     {
         void AddImage(Image image);
         Image GetImage(Guid eventId);
+        void DeleteImage(Guid EventId);
     }
 }

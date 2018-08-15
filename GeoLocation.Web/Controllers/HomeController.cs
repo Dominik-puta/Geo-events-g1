@@ -110,6 +110,49 @@ namespace GeoLocation.Web.Controllers
             return View(addViewModel);
         }
 
+        [HttpGet]
+        public IActionResult Update(Guid id)
+        {
+            AddViewModel model = new AddViewModel
+            {
+                NewEvent = _eventRepository.GetEventById(id),
+                Categories = _eventCategoryRepository.GetEventCategories(),
+                SubCategories = _eventSubCategoryRepository.GetSubCategories(),
+                Venues = _venueRepository.GetVenues()
+            };
+
+            return View(model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult Update(AddViewModel model)
+        {
+            if (!(model.Image is null))
+            {
+                Image newImage = new Image
+                {
+                    Id = Guid.NewGuid(),
+                    FileName = model.Image.FileName,
+                    Title = model.Image.Name
+                };
+
+                using (var ms = new MemoryStream())
+                {
+                    model.Image.CopyTo(ms);
+                    var fileBytes = ms.ToArray();
+                    newImage.ImageFile = fileBytes;
+                }
+
+                _imageRepository.DeleteImage(model.NewEvent.Id);
+                newImage.EventId = model.NewEvent.Id;
+                _imageRepository.AddImage(newImage);
+            }
+
+            model.NewEvent.StatusId = Guid.Parse("7ca65c86-0e39-465f-874d-fcb3c9183f1b"); // privremeno rjesenje, stavlja status na upcoming
+            _eventRepository.UpdateEvent(model.NewEvent);
+            return RedirectToAction("Index");
+        }
+
         public IActionResult DeleteEvent(Guid id)
         {
             _eventRepository.DeleteEvent(id);

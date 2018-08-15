@@ -12,5 +12,6 @@ namespace GeoLocation.Repository.Common
         void AddEvent(IEvent newEvent);
         void DeleteEvent(Guid EventId);
         Event GetEventById(Guid EventId);
+        void UpdateEvent(Event updatedEvent);
     }
 }

@@ -39,10 +39,12 @@
                     <div class="caption">
                         <h3>@item.Name</h3>
                         <p>@item.Description</p>
+                        <p>@item.VenueName</p>
                         <p><strong>@item.StartDate.ToString("dd/MM/yyyy HH:mm") - @item.EndDate.ToString("dd/MM/yyyy HH:mm")</strong></p>
                         <div class="btn-container">
                             <a class="btn btn-primary" onclick="location.href = '@(Url.Action("EventDetails", "Home", new EventDetailsViewModel{ EventId = item.Id }))'">Detalji</a>
                             <a class="btn btn-danger" asp-controller="Home" asp-action="DeleteEvent" asp-route-id='@item.Id'>Obriši</a>
+                            <a class="btn btn-default" asp-controller="Home" asp-action="Update" asp-route-id='@item.Id'>Uredi</a>
                         </div>
                     </div>
                 </div>

@@ -65,5 +65,20 @@ namespace GeoLocation.Repository
                 }
             }
         }
+
+        public void DeleteImage(Guid eventId)
+        {
+            using (conn = new NpgsqlConnection(_conStr))
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand())
+                {
+                    command.CommandText = "DELETE FROM \"Image\" WHERE \"EventId\" = @eventId";
+                    command.Parameters.AddWithValue("eventId", eventId);
+                    command.Connection = conn;
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
