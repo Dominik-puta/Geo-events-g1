@@ -119,10 +119,10 @@
         var target = ev.target;
         if (target instanceof mapsjs.map.Marker) {
             behavior.enable();
+            position = target.getPosition();
+            document.getElementById("latInput").value = position.lat;
+            document.getElementById("longInput").value = position.lng;
         }
-        position = target.getPosition();
-        document.getElementById("latInput").value = position.lat;
-        document.getElementById("longInput").value = position.lng;
     }, false);
 
     // Listen to the drag event and move the position of the marker

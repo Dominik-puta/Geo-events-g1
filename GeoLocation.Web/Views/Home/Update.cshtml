@@ -68,7 +68,7 @@
 
         <input type="text" asp-for="NewEvent.Id" value="@Model.NewEvent.Id" hidden />
 
-        <input type="submit" value="Stvori događaj" class="submit-button" style="margin-left: 15px" />
+        <input type="submit" value="Uredi događaj" class="submit-button" style="margin-left: 15px" />
     }
 </div>
 
@@ -120,10 +120,10 @@
         var target = ev.target;
         if (target instanceof mapsjs.map.Marker) {
             behavior.enable();
+            position = target.getPosition();
+            document.getElementById("latInput").value = position.lat;
+            document.getElementById("longInput").value = position.lng;
         }
-        position = target.getPosition();
-        document.getElementById("latInput").value = position.lat;
-        document.getElementById("longInput").value = position.lng;
     }, false);
 
     // Listen to the drag event and move the position of the marker
