@@ -55,7 +55,7 @@ namespace GeoLocation.Repository
                         CategoryName = (string)dr["CategoryName"],
                         SubCategoryName = (string)dr["SubCategoryName"],
                         VenueName = (string)dr["VenueName"],
-                        StatusName = (string)dr["StatusName"]
+                        StatusAbrv = (string)dr["StatusAbrv"]
                     };
                     events.Add(newEvent);
                 }
@@ -69,12 +69,12 @@ namespace GeoLocation.Repository
             using (conn = new NpgsqlConnection(_conStr))
             {
                 conn.Open();
-                using(var command = new NpgsqlCommand())
+                using (var command = new NpgsqlCommand())
                 {
                     command.Connection = conn;
                     command.CommandText = "INSERT INTO \"Event\" (\"Id\", \"Name\", \"Description\"" +
                         ", \"EntryFee\", \"LimitedSpace\", \"Organizer\", \"Lat\", \"Long\", \"StartDate\", \"EndDate\", \"EventCategoryId\", \"EventSubCategoryId\", \"VenueId\", \"StatusId\")" +
-                        "VALUES (@id, @name, @desc" + 
+                        "VALUES (@id, @name, @desc" +
                         ", @fee, @lspace, @org, @lat, @long, @start, @end, @catId, @subCatId, @venueId, @statusId)";
                     command.Parameters.AddWithValue("id", newEvent.Id);
                     command.Parameters.AddWithValue("name", newEvent.Name);
@@ -188,6 +188,62 @@ namespace GeoLocation.Repository
                     command.ExecuteNonQuery();
                 }
             }
+        }
+
+        public Status CheckStatus(Event newEvent)
+        {
+            string oldStatusAbrv = newEvent.StatusAbrv;
+            string newStatusAbrv;
+            Status newStatus = new Status();
+
+            if (DateTime.Now.CompareTo(newEvent.StartDate) > 0 && DateTime.Now.CompareTo(newEvent.EndDate) < 0)
+            {
+                newStatusAbrv = "Now";
+            }
+
+            else if (DateTime.Now.CompareTo(newEvent.EndDate) > 0)
+            {
+                newStatusAbrv = "Ended";
+            }
+
+            else
+            {
+                newStatusAbrv = "Upcoming";
+            }
+
+            using (conn = new NpgsqlConnection(_conStr))
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand())
+                {
+                    command.CommandText = "SELECT * FROM \"Status\" WHERE \"StatusAbrv\" = @newAbrv";
+                    command.Parameters.AddWithValue("newAbrv", newStatusAbrv);
+                    command.Connection = conn;
+                    using (var dr = command.ExecuteReader())
+                    {
+                        dr.Read();
+                        newStatus.Id = (Guid)dr["Id"];
+                        newStatus.Abrv = (string)dr["StatusAbrv"];
+                        newStatus.Name = (string)dr["StatusName"];
+                    }
+                }
+            }
+
+            if (oldStatusAbrv != newStatusAbrv)
+            {
+                using (var command = new NpgsqlCommand())
+                {
+                    command.CommandText = "UPDATE \"Event\" " +
+                        "SET \"StatusId\" = @newStatusId " +
+                        "WHERE \"Id\" = @eventId";
+                    command.Parameters.AddWithValue("newStatusId", newStatus.Id);
+                    command.Parameters.AddWithValue("eventId", newEvent.Id);
+                    command.Connection = conn;
+                    command.ExecuteNonQuery();
+                }
+            }
+
+            return newStatus;
         }
     }
 }

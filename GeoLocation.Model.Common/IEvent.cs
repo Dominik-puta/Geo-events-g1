@@ -24,6 +24,6 @@ namespace GeoLocation.Model.Common
         string CategoryName { get; set; }
         string SubCategoryName { get; set; }
         string VenueName { get; set; }
-        string StatusName { get; set; }
+        string StatusAbrv { get; set; }
     }
 }

@@ -35,16 +35,29 @@
             var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
             <div class="col-md-6">
                 <div class="thumbnail">
-                    <img src='@imgSrc' class="thumbnail-img" />
+                    <img src='@imgSrc' />
                     <div class="caption">
                         <h3>@item.Name</h3>
                         <p>@item.Description</p>
-                        <p>@item.VenueName</p>
-                        <p><strong>@item.StartDate.ToString("dd/MM/yyyy HH:mm") - @item.EndDate.ToString("dd/MM/yyyy HH:mm")</strong></p>
+                        <div><img src="~/images/location_on - material.png" style="width: 12px; height: 12px;"/> @item.VenueName</div>
+                        <div><img src="~/images/baseline_date_range_black_18dp.png" style="width: 12px; height: 12px;"/> @item.StartDate.ToString("dd/MM/yyyy HH:mm") - @item.EndDate.ToString("dd/MM/yyyy HH:mm")</div>
+                        @if (item.EventStatus.Abrv == "Upcoming")
+                        {
+                            <span style="color: deepskyblue">●</span>
+                        }
+                        else if (item.EventStatus.Abrv == "Ended")
+                        {
+                            <span style="color: red">●</span>
+                        }
+                        else if (item.EventStatus.Abrv == "Now")
+                        {
+                            <span style="color: lawngreen">●</span>
+                        }
+                        <span> @item.EventStatus.Name</span>
                         <div class="btn-container">
-                            <a class="btn btn-primary" onclick="location.href = '@(Url.Action("EventDetails", "Home", new EventDetailsViewModel{ EventId = item.Id }))'">Detalji</a>
-                            <a class="btn btn-danger" asp-controller="Home" asp-action="DeleteEvent" asp-route-id='@item.Id'>Obriši</a>
-                            <a class="btn btn-default" asp-controller="Home" asp-action="Update" asp-route-id='@item.Id'>Uredi</a>
+                        <a class="btn btn-primary" onclick="location.href = '@(Url.Action("EventDetails", "Home", new EventDetailsViewModel { EventId = item.Id }))'">Detalji</a>
+                        <a class="btn btn-danger" asp-controller="Home" asp-action="DeleteEvent" asp-route-id='@item.Id'>Obriši</a>
+                        <a class="btn btn-default" asp-controller="Home" asp-action="Update" asp-route-id='@item.Id'>Uredi</a>
                         </div>
                     </div>
                 </div>

@@ -58,6 +58,7 @@ namespace GeoLocation.Web.Controllers
             foreach (var item in events)
             {
                 item.Image = _imageRepository.GetImage(item.Id);
+                item.EventStatus = _eventRepository.CheckStatus(item);
             }
 
             if(!Double.IsNaN(lat) && !Double.IsNaN(lng) && lat != 0 && lng != 0)
