@@ -107,6 +107,7 @@ namespace GeoLocation.Repository
                     command.CommandText = "DELETE FROM \"Comment\" WHERE \"EventId\" = @id; " +
                         "DELETE FROM \"Rsvp\" WHERE \"EventId\" = @id; " +
                         "DELETE FROM \"Image\" WHERE \"EventId\" = @id; " +
+                        "DELETE FROM \"Rating\" WHERE \"EventId\" = @id; " + 
                         "DELETE FROM \"Event\" WHERE \"Id\" = @id;";
                     command.Parameters.AddWithValue("id", eventId);
                     command.ExecuteNonQuery();
@@ -231,15 +232,19 @@ namespace GeoLocation.Repository
 
             if (oldStatusAbrv != newStatusAbrv)
             {
-                using (var command = new NpgsqlCommand())
+                using (conn = new NpgsqlConnection(_conStr))
                 {
-                    command.CommandText = "UPDATE \"Event\" " +
-                        "SET \"StatusId\" = @newStatusId " +
-                        "WHERE \"Id\" = @eventId";
-                    command.Parameters.AddWithValue("newStatusId", newStatus.Id);
-                    command.Parameters.AddWithValue("eventId", newEvent.Id);
-                    command.Connection = conn;
-                    command.ExecuteNonQuery();
+                    conn.Open();
+                    using (var command = new NpgsqlCommand())
+                    {
+                        command.CommandText = "UPDATE \"Event\" " +
+                            "SET \"StatusId\" = @newStatusId " +
+                            "WHERE \"Id\" = @eventId";
+                        command.Parameters.AddWithValue("newStatusId", newStatus.Id);
+                        command.Parameters.AddWithValue("eventId", newEvent.Id);
+                        command.Connection = conn;
+                        command.ExecuteNonQuery();
+                    }
                 }
             }
 

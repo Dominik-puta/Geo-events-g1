@@ -11,6 +11,7 @@ using GeoLocation.Repository;
 using GeoLocation.Repository.Common;
 using System.IO;
 using Geolocation;
+using Npgsql;
 
 namespace GeoLocation.Web.Controllers
 {
@@ -24,6 +25,7 @@ namespace GeoLocation.Web.Controllers
         private ICommentRepository _commentRepository;
         private IStatusRepository _statusRepository;
         private IImageRepository _imageRepository;
+        private IRatingRepository _ratingRepository;
 
         public HomeController(
             IEventRepository eventRepository, 
@@ -33,7 +35,8 @@ namespace GeoLocation.Web.Controllers
             IRsvpRepository rsvpRepository,
             ICommentRepository commentRepository,
             IStatusRepository statusRepository,
-            IImageRepository imageRepository
+            IImageRepository imageRepository,
+            IRatingRepository ratingRepository
         )
         {
             _eventRepository = eventRepository;
@@ -44,6 +47,7 @@ namespace GeoLocation.Web.Controllers
             _commentRepository = commentRepository;
             _statusRepository = statusRepository;
             _imageRepository = imageRepository;
+            _ratingRepository = ratingRepository;
         }
 
         public IActionResult Index(string searchString, double lat, double lng, float radius)
@@ -170,7 +174,9 @@ namespace GeoLocation.Web.Controllers
             eventDetails.Rsvp = new Rsvp { EventId = eventDetails.EventId };
             eventDetails.Comments = _commentRepository.GetCommentsForEvent(eventDetails.EventId);
             eventDetails.NewComment = new Comment { EventId = eventDetails.EventId };
+            eventDetails.RatingAverage = _ratingRepository.GetAvgRating(eventDetails.EventId);
             if (eventDetails.UserLimitReached) ViewData["Message"] = "Sva mjesta za ovaj događaj su popunjena.";
+            if (eventDetails.DuplicateUser) ViewData["Message"] = "Već ste se prijavili za ovaj događaj.";
             return View(eventDetails);
         }
 
@@ -178,8 +184,17 @@ namespace GeoLocation.Web.Controllers
         public IActionResult Rsvp(Rsvp userInfo)
         {
             userInfo.Id = Guid.NewGuid();
-            bool succesful = _rsvpRepository.AddUser(userInfo);
-            return RedirectToAction("EventDetails", new EventDetailsViewModel { EventId = userInfo.EventId, UserLimitReached = !succesful });
+            bool succesful = true;
+            bool duplicateUser = false;
+            try
+            {
+                succesful = _rsvpRepository.AddUser(userInfo);
+            }
+            catch (NpgsqlException ex)
+            {
+                if (ex.ErrorCode == -2147467259) duplicateUser = true;
+            }
+            return RedirectToAction("EventDetails", new EventDetailsViewModel { EventId = userInfo.EventId, UserLimitReached = !succesful, DuplicateUser = duplicateUser });
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -189,6 +204,12 @@ namespace GeoLocation.Web.Controllers
             newComment.DateCreated = DateTime.Now;
             _commentRepository.AddComment(newComment);
             return RedirectToAction("EventDetails", new EventDetailsViewModel { EventId = newComment.EventId });
+        }
+
+        public IActionResult Rate(RateInfo info)
+        {
+            _ratingRepository.AddRating(info.value, info.eventId);
+            return RedirectToAction("EventDetails", new EventDetailsViewModel { EventId = info.eventId });
         }
 
         public IActionResult Error()

@@ -19,5 +19,7 @@ namespace GeoLocation.Web.Models
         public Image Image { get; set; }
         
         public bool UserLimitReached { get; set; }
+        public double RatingAverage { get; set; }
+        public bool DuplicateUser { get; set; }
     }
 }

@@ -72,6 +72,32 @@
         </div>
     </div>
 
+    <div class="rating-container">
+        <div class="section-title">Ocijenite ovaj događaj</div>
+        <div>
+            @{
+            int i;
+            for (i = 1; i <= 5; i++)
+            {
+                <div class="star-border" id="@i" onmouseover="rateOver(this.id)" onmouseout="rateOut(this.id)" onclick="location.href = '@(Url.Action("Rate", "Home", new { value = i, eventId = Model.Event.Id }))'">
+                </div>
+        }
+            }
+        </div>
+        @if (Model.RatingAverage != 0)
+        {
+            <div class="section-title" style="font-size: 16px">
+                Prosječna ocjena: @Model.RatingAverage.ToString("N2")
+            </div>
+        }
+        else
+        {
+            <div class="section-title" style="font-size: 14px">
+                Još nema ocjena!
+            </div>
+        }
+    </div>
+
     <div class="comment-container">
         <div class="section-title">Komentari</div>
         @if (Model.Comments.Count() == 0)
@@ -122,44 +148,16 @@
     var marker = new H.map.Marker({ lat: Number(@Model.Event.Lat), lng: Number(@Model.Event.Long) });
     map.addObject(marker);
 </script>
-@*<br /><br />
-    <h3>@Model.Venue.Name</h3>
-    <div>
-        <ul>
-            <li>@Model.Venue.Description</li>
-            <li>@Model.Venue.Address</li>
-            <li>@Model.Venue.Phone</li>
-            <li>@Model.Venue.Email</li>
-        </ul>
-    </div>
-
-    <h4>@Model.EventCategory.Name, @Model.EventSubCategory.Name</h4>
-    <hr />
-
-    <h4>Sign up for this event:</h4>
-    @await Html.PartialAsync("RsvpPartial", Model.Rsvp)
-
-    @if (Model.UserLimitReached)
-    {
-        <div>Sorry, the attendance limit on this event is reached.</div>
-    }
-    <hr />
-
-    <h4>Comments</h4>
-    @if (Model.Comments.Count() == 0)
-    {
-        <p>There are no comments for this event.</p>
-    }
-    else
-    {
-        @foreach (var comment in Model.Comments)
-        {
-            <p>
-                <strong>@comment.FirstName @comment.LastName</strong>, @comment.DateCreated.Humanize(utcDate: false)<br />
-                <i>@comment.Text</i>
-            </p>
+<script>
+    function rateOver(id) {
+        for (var i = 1; i <= Number(id); i++) {
+            $("#" + i).attr('class', 'star-full');
         }
     }
 
-    <hr />
-    @await Html.PartialAsync("AddCommentPartial", Model.NewComment)*@
+    function rateOut(id) {
+        for (var i = Number(id) + 1; i <= 5; i++) {
+            $("#" + i).attr('class', 'star-border');
+        }
+    }
+</script>

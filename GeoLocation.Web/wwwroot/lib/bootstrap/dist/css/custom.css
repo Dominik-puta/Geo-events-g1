@@ -425,3 +425,29 @@ input.map-search-input:focus {
     width: 100%;
     margin-bottom: 40px;
 }
+
+.rating-container {
+    display: block;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.star-border, .star-full {
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+}
+
+.star-border {
+    background-image: url('../../../../images/baseline-star_border-24px.svg');
+}
+
+.star-full {
+    background-image: url('../../../../images/baseline-star-24px.svg');
+    cursor: pointer;
+}
