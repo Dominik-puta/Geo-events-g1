@@ -3,12 +3,13 @@ using GeoLocation.Model.Common;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GeoLocation.Repository.Common
 {
     public interface IEventRepository
     {
-        IEnumerable<Event> GetEvents();
+        Task<IEnumerable<Event>> GetEvents();
         void AddEvent(IEvent newEvent);
         void DeleteEvent(Guid EventId);
         Event GetEventById(Guid EventId);

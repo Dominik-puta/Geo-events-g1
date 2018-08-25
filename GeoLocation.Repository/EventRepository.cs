@@ -6,6 +6,8 @@ using System.Text;
 using Npgsql;
 using GeoLocation.Model.Common;
 using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
+using System.Data.Common;
 
 namespace GeoLocation.Repository
 {
@@ -21,7 +23,7 @@ namespace GeoLocation.Repository
             _conStr = _configuration.GetConnectionString("MainConnection");
         }
 
-        public IEnumerable<Event> GetEvents()
+        public async Task<IEnumerable<Event>> GetEvents()
         {
             List<Event> events = new List<Event>();
             using (conn = new NpgsqlConnection(_conStr))
@@ -32,7 +34,7 @@ namespace GeoLocation.Repository
                     "INNER JOIN \"EventSubCategory\" ON \"Event\".\"EventSubCategoryId\" = \"EventSubCategory\".\"Id\"" +
                     "INNER JOIN \"Venue\" ON \"Event\".\"VenueId\" = \"Venue\".\"Id\"" +
                     "INNER JOIN \"Status\" ON \"Event\".\"StatusId\" = \"Status\".\"Id\"", conn);
-                NpgsqlDataReader dr = command.ExecuteReader();
+                DbDataReader dr = await command.ExecuteReaderAsync();
                 while (dr.Read())
                 {
                     Event newEvent = new Event()

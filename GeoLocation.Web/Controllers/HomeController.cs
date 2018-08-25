@@ -52,7 +52,17 @@ namespace GeoLocation.Web.Controllers
 
         public IActionResult Index(string searchString, double lat, double lng, float radius)
         {
-            var events = _eventRepository.GetEvents();
+
+            IEnumerable<Event> events = new List<Event>();
+
+            try
+            {
+                events = _eventRepository.GetEvents().Result;
+            }
+            catch (TimeoutException)
+            {
+                return RedirectToAction("Error");
+            }
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -206,10 +216,10 @@ namespace GeoLocation.Web.Controllers
             return RedirectToAction("EventDetails", new EventDetailsViewModel { EventId = newComment.EventId });
         }
 
-        public IActionResult Rate(RateInfo info)
+        public IActionResult Rate(int value, Guid eventId)
         {
-            _ratingRepository.AddRating(info.value, info.eventId);
-            return RedirectToAction("EventDetails", new EventDetailsViewModel { EventId = info.eventId });
+            _ratingRepository.AddRating(value, eventId);
+            return RedirectToAction("EventDetails", new EventDetailsViewModel { EventId = eventId });
         }
 
         public IActionResult Error()

@@ -76,12 +76,12 @@
         <div class="section-title">Ocijenite ovaj događaj</div>
         <div>
             @{
-            int i;
-            for (i = 1; i <= 5; i++)
-            {
-                <div class="star-border" id="@i" onmouseover="rateOver(this.id)" onmouseout="rateOut(this.id)" onclick="location.href = '@(Url.Action("Rate", "Home", new { value = i, eventId = Model.Event.Id }))'">
-                </div>
-        }
+                int i;
+                for (i = 1; i <= 5; i++)
+                {
+                    <div class="star-border" id="@i" onmouseover="rateOver(this.id)" onmouseout="rateOut(this.id)" onclick="rateClick(this.id)">
+                    </div>
+                }
             }
         </div>
         @if (Model.RatingAverage != 0)
@@ -156,8 +156,22 @@
     }
 
     function rateOut(id) {
-        for (var i = Number(id) + 1; i <= 5; i++) {
+        for (var i = Number(id); i <= 5; i++) {
             $("#" + i).attr('class', 'star-border');
         }
     }
+
+    function rateClick(id) {
+        $.ajax({
+            url: "/Home/Rate?value=" + id + "&eventId=" + "@Model.Event.Id",
+            success: function () {
+                for (var i = 1; i <= 5; i++) {
+                    $("#" + i).attr('onmouseover', '');
+                    $("#" + i).attr('onmouseout', '');
+                    $("#" + i).attr('onclick', '');
+                }
+            }
+        });
+    }
 </script>
+@*Url.Action("Rate", "Home", new { value = i, eventId = Model.Event.Id })*@
