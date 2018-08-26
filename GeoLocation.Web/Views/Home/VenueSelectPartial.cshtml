@@ -1,0 +1,11 @@
+﻿@using GeoLocation.Model;
+@model AddViewModel
+
+<label asp-for="NewEvent.VenueId">Lokacija</label>
+<select class="form-control" asp-for="NewEvent.VenueId" required>
+    <option value="" disabled selected>Odaberite lokaciju</option>
+    @foreach (var venue in Model.Venues)
+    {
+        <option value='@venue.Id'>@venue.Name</option>
+    }
+</select>

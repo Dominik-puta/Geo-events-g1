@@ -1,0 +1,34 @@
+﻿@using GeoLocation.Model;
+@model Rsvp
+
+
+@using(Html.BeginForm("Rsvp", "Home", FormMethod.Post))
+{
+    <div class="firstname-box">
+        <label asp-for="FirstName">Ime</label><br />
+        <input type="text" asp-for="FirstName" class="input" placeholder="Unesite ime" required/>
+    </div>
+
+    <div class="lastname-box">
+        <label asp-for="LastName">Prezime</label><br />
+        <input type="text" asp-for="LastName" class="input" placeholder="Unesite ime" required/>
+    </div>
+
+    <div class="email-box">
+        <label asp-for="Email">E-mail</label>
+        <input type="email" asp-for="Email" class="input" placeholder="Unesite e-mail" required/>
+    </div>
+
+    <input asp-for="EventId" type="text" value='@Model.EventId' hidden />
+
+    <div class="hl" style="color: #AAAAAA; font-size: 16px">
+        @ViewData["Message"]
+    </div>
+
+    <input type="submit" value="Dolazim 🎉" class="submit-button" />
+
+    <div class="terms-checkbox">
+        <input type="checkbox" required />
+        Prihvaćam uvjete korištenja moje e-mail adrese
+    </div>
+}

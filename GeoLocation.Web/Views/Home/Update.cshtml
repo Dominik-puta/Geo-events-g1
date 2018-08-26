@@ -1,34 +1,33 @@
-﻿@using GeoLocation.Web.Models
-@model AddViewModel
+﻿@model AddViewModel
 
 <div class="form-container">
-    @using (Html.BeginForm("Add", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Update", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div class="form-group col-md-12">
             <label asp-for="NewEvent.Name">Ime</label>
-            <input class="form-control" type="text" asp-for="NewEvent.Name" placeholder="Unesite ime događaja" required />
+            <input class="form-control" type="text" asp-for="NewEvent.Name" value="@Model.NewEvent.Name" placeholder="Unesite ime događaja" required />
         </div>
 
         <div class="form-group col-md-12">
             <label asp-for="NewEvent.Description">Opis</label>
-            <textarea class="form-control" type="text" asp-for="NewEvent.Description" placeholder="Unesite opis" required></textarea>
+            <textarea class="form-control" type="text" asp-for="NewEvent.Description" value="@Model.NewEvent.Description" placeholder="Unesite opis" required></textarea>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label asp-for="NewEvent.EntryFee">Cijena</label>
-                <input class="form-control" type="number" step="0.01" asp-for="NewEvent.EntryFee" placeholder="Unesite cijenu" required />
+                <input class="form-control" type="number" step="0.01" asp-for="NewEvent.EntryFee" value="@Model.NewEvent.EntryFee" placeholder="Unesite cijenu" required />
             </div>
             <div class="form-group col-md-6">
                 <label asp-for="NewEvent.LimitedSpace">Broj mjesta</label>
-                <input class="form-control" type="number" asp-for="NewEvent.LimitedSpace" placeholder="Unesite broj mjesta" required />
+                <input class="form-control" type="number" asp-for="NewEvent.LimitedSpace" value="@Model.NewEvent.LimitedSpace" placeholder="Unesite broj mjesta" required />
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label asp-for="NewEvent.Organizer">Organizator</label>
-                <input class="form-control" type="text" asp-for="NewEvent.Organizer" placeholder="Unesite ime organizatora" required />
+                <input class="form-control" type="text" asp-for="NewEvent.Organizer" value="@Model.NewEvent.Organizer" placeholder="Unesite ime organizatora" required />
             </div>
             <div class="form-group col-md-6">
                 @await Html.PartialAsync("VenueSelectPartial", Model)
@@ -38,16 +37,16 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label asp-for="NewEvent.StartDate">Početak</label>
-                <input class="form-control" type="datetime-local" asp-for="NewEvent.StartDate" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" required />
+                <input class="form-control" type="datetime-local" asp-for="NewEvent.StartDate" value="@Model.NewEvent.StartDate.ToString("yyyy-MM-ddTHH:mm")" required />
             </div>
             <div class="form-group col-md-6">
                 <label asp-for="NewEvent.EndDate">Kraj</label>
-                <input class="form-control" type="datetime-local" asp-for="NewEvent.EndDate" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" required />
+                <input class="form-control" type="datetime-local" asp-for="NewEvent.EndDate" value="@Model.NewEvent.EndDate.ToString("yyyy-MM-ddTHH:mm")" required />
             </div>
         </div>
 
-        <input value="0" id="latInput" type="number" step="any" asp-for="NewEvent.Lat" hidden/>
-        <input value="0" id="longInput" type="number" step="any" asp-for="NewEvent.Long" hidden/>
+        <input value="0" id="latInput" type="number" step="any" asp-for="NewEvent.Lat" hidden />
+        <input value="0" id="longInput" type="number" step="any" asp-for="NewEvent.Long" hidden />
 
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -61,13 +60,15 @@
         <div class="form-row">
             <div class="form-group col-md-12">
                 <label asp-for="Image">Slika</label>
-                <input class="form-control" type="file" asp-for="Image" accept="image/*" required />
+                <input class="form-control" type="file" asp-for="Image" accept="image/*" />
             </div>
         </div>
 
         <div id="map" name="map" class="col-md-12" style="height: 300px"></div>
 
-        <input type="submit" value="Stvori događaj" class="submit-button" style="margin-left: 15px" />
+        <input type="text" asp-for="NewEvent.Id" value="@Model.NewEvent.Id" hidden />
+
+        <input type="submit" value="Uredi događaj" class="submit-button" style="margin-left: 15px" />
     }
 </div>
 
@@ -88,14 +89,14 @@
     });
     var map = new H.Map(document.getElementById('map'),
         defaultLayers.normal.map, {
-            center: { lat: 45.5519216, lng: 18.6866134 },
+            center: { lat: Number(@Model.NewEvent.Lat), lng: Number(@Model.NewEvent.Long) },
             zoom: 8,
             pixelRatio: pixelRatio
         });
     var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
     var ui = H.ui.UI.createDefault(map, defaultLayers);
 
-    var marker = new H.map.Marker({ lat: 45.5519216, lng: 18.6866134 });
+    var marker = new H.map.Marker({ lat: Number(@Model.NewEvent.Lat), lng: Number(@Model.NewEvent.Long) });
     // Ensure that the marker can receive drag events
     marker.draggable = true;
     map.addObject(marker);
