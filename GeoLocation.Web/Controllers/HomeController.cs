@@ -66,7 +66,7 @@ namespace GeoLocation.Web.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                events = events.Where(e => e.Name.ToLower().Contains(searchString.ToLower()));
+                events = events.Where(e => e.Name.ToLower().Contains(searchString.ToLower()) || e.Description.ToLower().Contains(searchString.ToLower()));
             }
 
             foreach (var item in events)

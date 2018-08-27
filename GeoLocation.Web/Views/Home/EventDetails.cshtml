@@ -40,11 +40,15 @@
         <div class="section-box venue-box">
             <div id="map"></div>
             <div class="venue-info-container">
-                <div class="venue-info" style="margin-left: 10px"><img src="~/images/location_on - material.png" /> @Model.Venue.Name</div>
-                <div class="venue-info" style="float: right; margin-right: 10px;"><img src="~/images/phone_android - material.png" /> @Model.Venue.Phone</div>
-                <div class="venue-info" style="margin-left: 10px"><img src="~/images/home - material.png" /> @Model.Venue.Address</div>
-                <div class="venue-info" style="float: right; margin-right: 10px;"><img src="~/images/email - material.png" /> @Model.Venue.Email</div>
-            </div>
+                <div class="row">
+                <div class="venue-info col-md-6" style="margin-left: 10px;"><img src="~/images/location_on - material.png" /> @Model.Venue.Name</div>
+                <div class="venue-info col-md-6" style="float: right"><img src="~/images/phone_android - material.png" /> @Model.Venue.Phone</div>
+                </div>
+                <div class="row">
+                    <div class="venue-info col-md-6" style="margin-left: 10px"><img src="~/images/home - material.png" /> @Model.Venue.Address</div>
+                    <div class="venue-info col-md-6" style="float: right"><img src="~/images/email - material.png" /> @Model.Venue.Email</div>
+                </div> 
+           </div>
         </div>
     </div>
 
@@ -107,7 +111,7 @@
             </div>
             <div class="hl"></div>
         }
-        <div class="section-box" style="height: 507px">
+        <div class="section-box comment-section-box" style="height: 507px">
             @await Html.PartialAsync("AddCommentPartial", Model.NewComment)
         </div>
         @foreach (var comment in Model.Comments)
