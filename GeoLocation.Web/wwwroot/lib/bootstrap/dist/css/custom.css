@@ -452,6 +452,10 @@ input.map-search-input:focus {
     cursor: pointer;
 }
 
+.map-search-button {
+    margin-left: 10px;
+}
+
 @media all and (max-width: 599px) {
     .index-container {
         margin-left: 5%;
@@ -562,5 +566,14 @@ input.map-search-input:focus {
         margin-left: 5%;
         margin-right: 5%;
         text-align: center;
+    }
+
+    .map-search-text {
+        font-size: 12px;
+    }
+
+    .map-search-input {
+        height: 30px;
+        width: 60px;
     }
 }
